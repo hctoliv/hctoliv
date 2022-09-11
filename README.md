@@ -1,8 +1,8 @@
 ### Olá, eu sou o Hector
 
-- 🔭 Em busca do primeiro emprego como programador
+- 🔭 Experiência em Desenvolvimento Mobile e Front-End 
 - 🌱 Estudando TypeScript
-- 😄 Pronomes: Ele/Dele
+- 😄 Atualmente cursando Analíse e desenvolvimento de sistemas.
 
 <div>
   <a href="https://beacons.ai/hctoliv">
