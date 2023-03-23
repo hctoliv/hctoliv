@@ -1,8 +1,9 @@
 ### Olá, eu sou o Hector
 
-- 🔭 Experiência em Desenvolvimento Mobile e Front-End 
-- 🌱 Estudando TypeScript
-- 😄 Atualmente cursando Analíse e desenvolvimento de sistemas.
+<h1>Expêriencias</h1>
+📚 Universidade Crzueiro do Sul - Ciência da Computação.
+📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.
+
 
 <div>
   <a href="https://beacons.ai/hctoliv">
