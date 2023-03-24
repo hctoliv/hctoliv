@@ -4,6 +4,12 @@
 📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.</strong>
 
 
+<li></li>
+<h2>Conhecimentos</h2>
+<strong>
+ 
+  
+</strong>
 <div>
   <a href="https://beacons.ai/hctoliv">
 </div>
