@@ -6,8 +6,6 @@
 
 <div>
   <a href="https://beacons.ai/hctoliv">
-  <img height="42%" src="https://github-readme-stats.vercel.app/api?username=hctoliv&show_icons=true&theme=dark">
-  <img height="50%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=hctoliv&theme=dark">
 </div>
 
 <div style="display: inline_block"><br>
