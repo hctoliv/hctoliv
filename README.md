@@ -16,11 +16,8 @@
 
 
 <li></li>
-<h2>Conhecimentos</h2>
-<strong>
- 
-  
-</strong>
+<h2>Linguagens mais usadas por mim :)</h2>
+
 <div>
   <a href="https://beacons.ai/hctoliv">
 </div>
