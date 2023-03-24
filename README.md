@@ -1,8 +1,8 @@
 ### Olá, eu sou o Hector
 
 <h1>Expêriencias</h1>
-📚 Universidade Crzueiro do Sul - Ciência da Computação. <br>
-📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.
+📚 <strong>Universidade Crzueiro do Sul - Ciência da Computação. <br>
+📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.</strong>
 
 
 <div>
