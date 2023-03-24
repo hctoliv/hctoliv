@@ -1,7 +1,18 @@
 ## Olá, seja bem-vindo!
+
+
+<li>Desenvolvedor WEB e Mobile Pleno</li>
+<li>Front-End com React, TypeScript, Styled-Components, Vite</li>
+<li>Mobile com React Native, Styled-Components, React-Navigation, Expo ou React CLI</li>
+<li>Conhecimento em Redes, manutenção e construção de servidores</li>
+<li>Residindo em São Paulo, Capital</li>
+
+
 <h1>Expêriencias</h1>
 📚 <strong>Universidade Cruzeiro do Sul - Ciência da Computação. <br>
+ 
 📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.</strong>
+
 
 
 <li></li>
