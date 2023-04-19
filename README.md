@@ -1,24 +1,22 @@
-## Olá, seja bem-vindo!
+## <HelloWorld/>
 
 
 <li>Desenvolvedor WEB e Mobile Pleno</li>
 <li>Front-End com React, TypeScript, Styled-Components, Vite, NextJS</li>
 <li>Mobile com React Native, Styled-Components, React-Navigation, Expo or React CLI</li>
 <li>Conhecimento em Redes Cisco, Active Directory, manutenção e construção de servidores</li>
-<li>Residindo em São Paulo, Capital</li>
+<li>Residindo em São Paulo Capital</li>
 
 
 <h1>Expêriencias</h1>
-📚 <strong>Universidade Cruzeiro do Sul - Ciência da Computação. <br>
- 
-📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.
 
-📚 Kenzie Academy Brasil- Desenvolvedor Full-Stack
+<strong>
+📚 Universidade Cruzeiro do Sul - Ciência da Computação. <br>
+📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.
+📚 Kenzie Academy Brasil - Desenvolvedor Full-Stack
 </strong>
 
 
-
-<li></li>
 <h2>Linguagens mais usadas por mim :)</h2>
 
 <div>
@@ -33,6 +31,7 @@
   <img align="center" alt="CSS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
   <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg">
  <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg">
+ 
 </div>
   
   ##
