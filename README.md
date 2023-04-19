@@ -1,4 +1,4 @@
-## "&lt HelloWorld &gt"
+## HelloWorld </>
 
 
 <li>Desenvolvedor WEB e Mobile Pleno</li>
@@ -12,7 +12,7 @@
 
 <strong>
 📚 Universidade Cruzeiro do Sul - Ciência da Computação. <br>
-📚 ETEC De Vila Formosa - Desenvolvimento de sistemas.
+📚 ETEC De Vila Formosa - Desenvolvimento de sistemas. <br>
 📚 Kenzie Academy Brasil - Desenvolvedor Full-Stack
 </strong>
 
