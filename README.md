@@ -17,7 +17,7 @@
 </strong>
 
 
-<h2>Linguagens mais usadas por mim :)</h2>
+<h2>Tecnologias mais usadas :)</h2>
 
 <div>
   <a href="https://beacons.ai/hctoliv">
