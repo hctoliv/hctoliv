@@ -1,12 +1,12 @@
 ## Olá, mundo! Eu sou o Hector. </>
 
 <ul>
-<li>Desenvolvedor WEB e Mobile Pleno</li>
+<strong><li>Desenvolvedor WEB e Mobile Pleno</li>
 <li>Front-End com React, TypeScript, Styled-Components, Vite, NextJS</li>
 <li>Mobile com React Native, Styled-Components, React-Navigation, Expo or React CLI</li>
 <li>UX UI</li>
 <li>Conhecimento em Redes Cisco, Active Directory, manutenção e construção de servidores</li>
-<li>Residindo em São Paulo Capital</li>
+  <li>Residindo em São Paulo Capital</li></strong>
 </ul>
 
 <h1>Expêriencias</h1>
