@@ -1,12 +1,13 @@
 ## Olá, mundo! Eu sou o Hector. </>
 
-
+<ul>
 <li>Desenvolvedor WEB e Mobile Pleno</li>
 <li>Front-End com React, TypeScript, Styled-Components, Vite, NextJS</li>
 <li>Mobile com React Native, Styled-Components, React-Navigation, Expo or React CLI</li>
+<li>UX UI</li>
 <li>Conhecimento em Redes Cisco, Active Directory, manutenção e construção de servidores</li>
 <li>Residindo em São Paulo Capital</li>
-
+</ul>
 
 <h1>Expêriencias</h1>
 
@@ -32,6 +33,7 @@
   <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg">
  <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg">
   <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg">
+  <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vite/vite-original.svg">
 </div>
   
   ##
