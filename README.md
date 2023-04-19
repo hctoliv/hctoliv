@@ -1,4 +1,4 @@
-## Olá mundo! Eu sou o Hector. </>
+## Olá, mundo! Eu sou o Hector. </>
 
 
 <li>Desenvolvedor WEB e Mobile Pleno</li>
