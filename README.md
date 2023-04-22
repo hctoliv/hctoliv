@@ -5,7 +5,7 @@
 <li>Front-End com React, TypeScript, Styled-Components, Vite, NextJS</li>
 <li>Mobile com React Native, Styled-Components, React-Navigation, Expo or React CLI</li>
 <li>UX UI</li>
-<li>Conhecimento em Redes Cisco, Active Directory e manutenção e construção de servidores</li>
+<li>Conhecimento em Redes Cisco, Windows Server, e Active Directory</li>
   <li>Residindo em São Paulo Capital</li></strong>
 </ul>
 
