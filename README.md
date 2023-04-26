@@ -12,7 +12,7 @@
 <h1>Expêriencias</h1>
 
 <strong>
-📚 Universidade Cruzeiro do Sul - Ciência da Computação. <br>
+📚 Universidade São Judas Tadeu - Ciência da Computação. <br>
 📚 ETEC De Vila Formosa - Desenvolvimento de sistemas. <br>
 📚 Kenzie Academy Brasil - Desenvolvedor Full-Stack
 </strong>
