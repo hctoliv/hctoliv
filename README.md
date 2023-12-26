@@ -1,7 +1,7 @@
 ## Olá, mundo! Eu sou o Hector. </>
 
 <ul>
-<strong><li>Desenvolvedor WEB e Mobile</li>
+<strong><li>Desenvolvedor Full Stack</li>
 <li>Front-End com React, TypeScript, Styled-Components, Vite, NextJS</li>
 <li>Mobile com React Native, Styled-Components, React-Navigation, Expo or React CLI</li>
 <li>UX UI</li>
