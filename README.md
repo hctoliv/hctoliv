@@ -14,7 +14,7 @@
 <strong>
 📚 Universidade São Judas Tadeu - Ciência da Computação. <br>
 📚 ETEC De Vila Formosa - Desenvolvimento de sistemas. <br>
-📚 Kenzie Academy Brasil - Desenvolvedor Full-Stack
+📚 ALURA - Desenvolvedor Full-Stack
 </strong>
 
 
