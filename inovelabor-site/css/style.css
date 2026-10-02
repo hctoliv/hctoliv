@@ -761,3 +761,8 @@ h1, h2, h3 { font-family: var(--font); color: var(--navy); line-height: 1.15; ma
   .footer-grid { grid-template-columns: 1fr; }
 }
 .produto-preco small { color: var(--muted); font-size: 12px; }
+.nav > a, .nav-drop > button { white-space: nowrap; }
+@media (max-width: 1360px) { .header-acoes .sociais { display: none; } .nav { gap: 28px; } }
+.bloco h3 { hyphens: manual; overflow-wrap: normal; min-height: 3.6em; font-size: clamp(26px, 2.3vw, 36px); }
+.bloco-icone { margin-top: 56px; }
+@media (max-width: 560px) { .bloco h3 { min-height: 0; } }
