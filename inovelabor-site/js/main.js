@@ -3,8 +3,11 @@
 
   var CONTATO = {
     email: "vendas@inovelabor.com.br",
-    telefone: "(11) 2791-2239"
+    telefone: "(11) 2791-2239",
+    // Número do WhatsApp com DDI + DDD, só dígitos. Confirme o número oficial antes de publicar.
+    whatsapp: "551127912239"
   };
+  var reduzMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var STORAGE_KEY = "inovelabor-orcamento";
 
   // ---------- Orçamento (lista de itens salva no navegador) ----------
@@ -123,7 +126,7 @@
   function cardProduto(p) {
     var cat = (window.CATEGORIAS || []).find(function (c) { return c.id === p.categoria; }) || {};
     return '<article class="produto">' +
-      '<div class="produto-thumb" aria-hidden="true">' + (cat.icone || "🔬") + '</div>' +
+      '<div class="produto-thumb" aria-hidden="true"><span>' + (cat.icone || "🔬") + '</span></div>' +
       '<span class="produto-tag">' + (cat.nome || "") + ' · ' + p.sub + '</span>' +
       '<h3>' + p.nome + '</h3>' +
       '<p>' + p.desc + '</p>' +
@@ -177,7 +180,7 @@
           (!q || normalizar(p.nome + " " + p.desc + " " + p.sub + " " + p.sku).indexOf(q) !== -1);
       });
       resumo.textContent = lista.length + (lista.length === 1 ? " produto encontrado" : " produtos encontrados");
-      catalogo.innerHTML = lista.length ? lista.map(cardProduto).join("")
+      catalogo.innerHTML = lista.length ? lista.map(function (p, i) { return cardProduto(p).replace('<article class="produto">', '<article class="produto" style="--i:' + Math.min(i, 12) + '">'); }).join("")
         : '<p class="catalogo-vazio">Nenhum produto encontrado. Não achou o que procura? <a href="#" data-abrir-orcamento>Peça um orçamento personalizado</a> — trabalhamos com mais de 50 mil itens.</p>';
     }
 
@@ -214,6 +217,114 @@
       window.location.href = "mailto:" + CONTATO.email + "?subject=" + encodeURIComponent("Contato pelo site - " + f.assunto.value) +
         "&body=" + encodeURIComponent(corpo);
     });
+  }
+
+  // ---------- WhatsApp ----------
+  document.querySelectorAll("[data-whatsapp]").forEach(function (a) {
+    a.href = "https://wa.me/" + CONTATO.whatsapp + "?text=" + encodeURIComponent("Olá, InoveLabor! Vim pelo site e gostaria de atendimento.");
+  });
+
+  // ---------- Header ao rolar + barra de progresso ----------
+  var header = document.querySelector(".header");
+  var progresso = document.querySelector(".scroll-progress");
+  function aoRolar() {
+    var y = window.scrollY;
+    if (header) header.classList.toggle("scrolled", y > 40);
+    if (progresso) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progresso.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
+    }
+  }
+  window.addEventListener("scroll", aoRolar, { passive: true });
+  aoRolar();
+
+  // ---------- Grade de losangos dos blocos de categoria ----------
+  document.querySelectorAll(".pontos").forEach(function (grade) {
+    var html = "";
+    for (var r = 0; r < 3; r++) {
+      for (var c = 0; c < 11; c++) {
+        var forte = Math.random() < 0.18 ? ' class="forte"' : "";
+        html += '<i' + forte + ' style="--c:' + c + ';--r:' + r +
+          ';--dur:' + (2 + Math.random() * 3).toFixed(2) + 's;--atraso:-' + (Math.random() * 5).toFixed(2) + 's"></i>';
+      }
+    }
+    grade.innerHTML = html;
+  });
+
+  // ---------- Letreiros (marquee) ----------
+  document.querySelectorAll(".marquee-trilha[data-itens]").forEach(function (t) {
+    var itens = t.dataset.itens.split("|");
+    var bloco = itens.map(function (i) { return "<span>" + i + "</span>"; }).join("");
+    var copia = itens.map(function (i) { return '<span aria-hidden="true">' + i + "</span>"; }).join("");
+    t.innerHTML = bloco + copia;
+  });
+
+  // ---------- Contadores ----------
+  function animarContador(el) {
+    var alvo = parseInt(el.dataset.count, 10);
+    if (reduzMovimento) { el.textContent = alvo; return; }
+    var inicio = null, dur = 1800;
+    function passo(ts) {
+      if (!inicio) inicio = ts;
+      var p = Math.min((ts - inicio) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 4);
+      el.textContent = Math.round(alvo * e);
+      if (p < 1) requestAnimationFrame(passo);
+    }
+    el.textContent = "0";
+    requestAnimationFrame(passo);
+  }
+
+  // ---------- Revelação ao rolar ----------
+  var alvos = document.querySelectorAll("[data-reveal], .stagger, .faixa");
+  function revelar(el) {
+    el.classList.add("visivel");
+    el.querySelectorAll("[data-count]").forEach(animarContador);
+  }
+  if ("IntersectionObserver" in window && !reduzMovimento) {
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (en.isIntersecting) { revelar(en.target); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    alvos.forEach(function (el) { obs.observe(el); });
+  } else {
+    alvos.forEach(revelar);
+  }
+
+  // ---------- Slider do hero ----------
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var pontos = document.querySelector(".slides-pontos");
+  if (slides.length > 1 && pontos) {
+    var atual = 0, timer, TEMPO = 7000;
+    pontos.style.setProperty("--tempo", TEMPO / 1000 + "s");
+    pontos.innerHTML = slides.map(function (_, i) {
+      return '<button type="button" aria-label="Slide ' + (i + 1) + '"' + (i === 0 ? ' class="ativo"' : "") + "></button>";
+    }).join("");
+    var botoes = pontos.querySelectorAll("button");
+    function irPara(n) {
+      n = (n + slides.length) % slides.length;
+      if (n === atual) return;
+      var anterior = slides[atual];
+      anterior.classList.remove("ativo");
+      anterior.classList.add("saindo");
+      setTimeout(function () { anterior.classList.remove("saindo"); }, 600);
+      slides[n].classList.add("ativo");
+      botoes[atual].classList.remove("ativo");
+      void botoes[n].offsetWidth;
+      botoes[n].classList.add("ativo");
+      atual = n;
+      reiniciar();
+    }
+    function reiniciar() {
+      clearTimeout(timer);
+      if (!reduzMovimento) timer = setTimeout(function () { irPara(atual + 1); }, TEMPO);
+    }
+    document.querySelectorAll("[data-slide]").forEach(function (b) {
+      b.addEventListener("click", function () { irPara(atual + parseInt(b.dataset.slide, 10)); });
+    });
+    botoes.forEach(function (b, i) { b.addEventListener("click", function () { irPara(i); }); });
+    reiniciar();
   }
 
   var ano = document.getElementById("ano");

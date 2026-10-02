@@ -8,65 +8,222 @@
   <meta property="og:title" content="InoveLabor | Produtos para Laboratórios">
   <meta property="og:description" content="Equipamentos, vidrarias, reagentes e kits didáticos com atendimento técnico e entrega para todo o Brasil.">
   <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b2a3c">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="container">
-      <div>
-        <span>📞 <a href="tel:+551127912239">(11) 2791-2239</a></span>
-        <span>✉️ <a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></span>
-      </div>
-      <div class="hide-sm">Seg. a Sex. das 8h30 às 18h · Entregamos em todo o Brasil</div>
-    </div>
-  </div>
+<body class="home">
+  <div class="scroll-progress" aria-hidden="true"></div>
 
   <!-- HEADER -->
   <header class="header">
     <div class="container">
-      <a href="index.html" class="logo"><img src="assets/logo.svg" alt="InoveLabor Produtos para Laboratórios" width="190" height="42"></a>
-      <form class="busca-topo" action="produtos.html" role="search">
-        <label for="q-topo" class="sr-only">Buscar produtos</label>
-        <input id="q-topo" name="q" type="search" placeholder="Buscar pHmetro, béquer, micropipeta...">
-        <button type="submit" aria-label="Buscar">🔍</button>
-      </form>
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <a href="index.html" class="logo"><img src="assets/logo-branco.svg" alt="InoveLabor Produtos para Laboratórios" width="200" height="44"></a>
       <nav class="nav" aria-label="Principal">
-        <a href="index.html">Início</a>
-        <a href="produtos.html">Produtos</a>
+        <a href="index.html" class="ativo">Início</a>
+        <div class="nav-drop">
+          <button type="button" aria-haspopup="true">Produtos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="nav-drop-menu">
+            <a href="produtos.html">Todos os produtos</a>
+            <a href="produtos.html?categoria=equipamentos">Equipamentos</a>
+            <a href="produtos.html?categoria=vidrarias">Vidrarias</a>
+            <a href="produtos.html?categoria=reagentes">Reagentes</a>
+            <a href="produtos.html?categoria=kits">Kits Didáticos</a>
+            <a href="produtos.html?categoria=acessorios">Acessórios</a>
+          </div>
+        </div>
         <a href="#sobre">A Empresa</a>
         <a href="#contato">Contato</a>
-        <a href="#" class="nav-orc" data-abrir-orcamento>🧾 Orçamento <span class="badge" data-orcamento-count hidden>0</span></a>
       </nav>
+      <div class="header-acoes">
+        <a href="#contato" class="btn btn-msg btn-shine">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <span>Mensagem</span>
+        </a>
+        <a href="#" class="btn btn-ghost btn-orc" data-abrir-orcamento>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          <span class="txt">Orçamento</span>
+          <span class="badge" data-orcamento-count hidden>0</span>
+        </a>
+      </div>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container">
-        <div>
-          <span class="eyebrow">Produtos para Laboratórios</span>
-          <h1>Tudo o que o seu laboratório precisa, <em>com quem entende de ciência.</em></h1>
-          <p>Equipamentos, vidrarias, reagentes, acessórios e kits didáticos para indústrias, universidades, escolas e laboratórios de análise — com atendimento consultivo e entrega para todo o Brasil.</p>
-          <div class="hero-ctas">
-            <a href="produtos.html" class="btn btn-light">Ver catálogo</a>
-            <a href="#" class="btn btn-outline" data-abrir-orcamento>Solicitar orçamento</a>
+    <!-- HERO com slider -->
+    <section class="hero" aria-roledescription="carrossel">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="onda o1"></span><span class="onda o2"></span><span class="onda o3"></span>
+        <svg class="seda" viewBox="0 0 1440 800" preserveAspectRatio="none">
+          <path d="M-100 520 C 240 380, 480 700, 820 520 S 1300 300, 1600 460" stroke="rgba(120,210,220,.55)" stroke-width="70" fill="none" stroke-linecap="round" filter="url(#borrar)"/>
+          <path d="M-100 300 C 300 180, 560 460, 900 300 S 1350 120, 1600 260" stroke="rgba(34,184,167,.35)" stroke-width="40" fill="none" stroke-linecap="round" filter="url(#borrar)"/>
+          <path d="M-100 700 C 360 560, 700 820, 1040 660 S 1400 560, 1600 640" stroke="rgba(255,255,255,.18)" stroke-width="24" fill="none" stroke-linecap="round" filter="url(#borrar)"/>
+          <defs><filter id="borrar"><feGaussianBlur stdDeviation="18"/></filter></defs>
+        </svg>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="slides">
+          <div class="slide ativo">
+            <h1 class="hero-titulo">
+              <span class="linha"><span>Qualidade e inovação</span></span>
+              <span class="linha"><span>em produtos para</span></span>
+              <span class="linha"><span><strong>laboratórios</strong></span></span>
+            </h1>
+            <p class="hero-texto">Estamos preparados para entender e atender da melhor forma todas as demandas do seu laboratório — de equipamentos a vidrarias e reagentes.</p>
+          </div>
+          <div class="slide">
+            <h2 class="hero-titulo">
+              <span class="linha"><span>Equipamentos de</span></span>
+              <span class="linha"><span>precisão para</span></span>
+              <span class="linha"><span><strong>resultados confiáveis</strong></span></span>
+            </h2>
+            <p class="hero-texto">pHmetros, espectrofotômetros, centrífugas, balanças e muito mais, com suporte técnico na escolha do modelo ideal.</p>
+          </div>
+          <div class="slide">
+            <h2 class="hero-titulo">
+              <span class="linha"><span>Ciência na prática</span></span>
+              <span class="linha"><span>com kits</span></span>
+              <span class="linha"><span><strong>didáticos completos</strong></span></span>
+            </h2>
+            <p class="hero-texto">Laboratórios portáteis de ciências, química, física e biologia para escolas e projetos de ensino.</p>
+          </div>
+          <div class="slides-nav">
+            <button type="button" class="seta-slide" data-slide="-1" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m15 5-7 7 7 7"/></svg></button>
+            <div class="slides-pontos"></div>
+            <button type="button" class="seta-slide" data-slide="1" aria-label="Próximo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m9 5 7 7-7 7"/></svg></button>
           </div>
         </div>
-        <div class="hero-card">
-          <ul>
-            <li><span>🔬</span><div><strong>+50 mil itens</strong><small>Do equipamento de bancada à ponteira de pipeta.</small></div></li>
-            <li><span>🚚</span><div><strong>Entrega nacional</strong><small>Enviamos para todos os estados do Brasil.</small></div></li>
-            <li><span>🤝</span><div><strong>Atendimento técnico</strong><small>Ajudamos a especificar o produto certo para sua aplicação.</small></div></li>
-            <li><span>🏛️</span><div><strong>Instituições e licitações</strong><small>Atendemos órgãos públicos, escolas e universidades.</small></div></li>
-          </ul>
+
+        <aside class="especialistas anim-in" style="--d:.8s">
+          <p class="especialistas-titulo">Especialistas em atender</p>
+          <a href="#segmentos">
+            <svg viewBox="0 0 24 24"><path d="M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z"/></svg>
+            <span>Universidades</span>
+            <svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg>
+          </a>
+          <a href="#segmentos">
+            <svg viewBox="0 0 24 24"><path d="M3 21V9l5 3V9l5 3V5h5v16zM7 17h2M12 17h2"/></svg>
+            <span>Indústrias</span>
+            <svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg>
+          </a>
+          <a href="#segmentos">
+            <svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 10a1.5 1.5 0 0 0 1.3 2h11.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/></svg>
+            <span>Laboratórios</span>
+            <svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg>
+          </a>
+          <a href="#segmentos">
+            <svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5M22 9v6"/></svg>
+            <span>Escolas</span>
+            <svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg>
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FAIXA DE CATEGORIAS (blocos com pontos animados) -->
+    <section class="faixa" aria-label="Linhas de produtos">
+      <div class="container">
+        <div class="faixa-grid">
+          <a class="bloco ativo" href="produtos.html?categoria=equipamentos" style="--i:0">
+            <span class="bloco-rotulo">Produtos</span>
+            <div class="pontos" aria-hidden="true"></div>
+            <svg class="bloco-icone" viewBox="0 0 48 48"><rect x="8" y="30" width="32" height="10" rx="2"/><path d="M16 30V14h8l6 6v10M20 8h8M24 8v6"/><circle cx="34" cy="35" r="1.5"/></svg>
+            <h3>Equipamentos de Laboratório</h3>
+            <span class="bloco-mais">Ver produtos →</span>
+          </a>
+          <a class="bloco" href="produtos.html?categoria=vidrarias" style="--i:1">
+            <span class="bloco-rotulo">Vidrarias</span>
+            <div class="pontos" aria-hidden="true"></div>
+            <svg class="bloco-icone" viewBox="0 0 48 48"><path d="M18 6h12M20 6v14L10 40a3 3 0 0 0 2.7 4h22.6a3 3 0 0 0 2.7-4L28 20V6M14 32h20"/></svg>
+            <h3>Vidrarias e Plásticos</h3>
+            <span class="bloco-mais">Ver produtos →</span>
+          </a>
+          <a class="bloco" href="produtos.html?categoria=reagentes" style="--i:2">
+            <span class="bloco-rotulo">Químicos</span>
+            <div class="pontos" aria-hidden="true"></div>
+            <svg class="bloco-icone" viewBox="0 0 48 48"><path d="M10 18h10v24H10zM12 18v-6h6v6M13 8h4M28 26h10v16H28zM30 26v-4h6v4M10 30h10M28 34h10"/></svg>
+            <h3>Reagentes Químicos</h3>
+            <span class="bloco-mais">Ver produtos →</span>
+          </a>
+          <a class="bloco" href="produtos.html?categoria=kits" style="--i:3">
+            <span class="bloco-rotulo">Ensino</span>
+            <div class="pontos" aria-hidden="true"></div>
+            <svg class="bloco-icone" viewBox="0 0 48 48"><rect x="6" y="16" width="36" height="24" rx="3"/><path d="M18 16v-4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4M6 26h36M22 26v4h4v-4"/></svg>
+            <h3>Kits Didáticos</h3>
+            <span class="bloco-mais">Ver produtos →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- INOVAR E TRANSFORMAR -->
+    <section class="destaque-marca" id="sobre">
+      <div class="destaque-grid">
+        <div class="container-esq" data-reveal="left">
+          <h2 class="titulo-gigante"><span>Inovar e</span><span>Transformar</span></h2>
+          <p>Descubra por que somos a escolha certa para equipar o seu laboratório — com produtos de alto padrão e um atendimento que entende a sua rotina.</p>
+        </div>
+        <div class="destaque-imagem" data-reveal="right" aria-hidden="true">
+          <span class="barra"></span>
+          <span class="marca-vertical">InoveLabor</span>
+          <svg class="vidraria" viewBox="0 0 520 380">
+            <defs>
+              <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22b8a7"/><stop offset="1" stop-color="#0e7c86"/></linearGradient>
+              <linearGradient id="vidro" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".5" stop-color="#fff" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity=".8"/></linearGradient>
+              <clipPath id="clip-bequer"><path d="M250 60h170v270a20 20 0 0 1-20 20H270a20 20 0 0 1-20-20z"/></clipPath>
+              <clipPath id="clip-balao"><circle cx="150" cy="260" r="88"/></clipPath>
+            </defs>
+            <!-- balão -->
+            <rect x="132" y="110" width="36" height="80" fill="url(#vidro)" stroke="#bfd6dc" stroke-width="2"/>
+            <circle cx="150" cy="260" r="88" fill="url(#vidro)" stroke="#bfd6dc" stroke-width="2"/>
+            <g clip-path="url(#clip-balao)"><path class="liquido l2" d="M40 250 Q 95 235 150 250 T 260 250 V 360 H 40z" fill="url(#liq)" opacity=".9"/></g>
+            <!-- béquer -->
+            <path d="M250 60h170v270a20 20 0 0 1-20 20H270a20 20 0 0 1-20-20z" fill="url(#vidro)" stroke="#bfd6dc" stroke-width="2"/>
+            <g clip-path="url(#clip-bequer)"><path class="liquido" d="M200 170 Q 270 150 335 170 T 470 170 V 360 H 200z" fill="url(#liq)"/></g>
+            <g stroke="#ffffff" stroke-width="2" opacity=".9">
+              <line x1="380" y1="140" x2="410" y2="140"/><line x1="392" y1="180" x2="410" y2="180"/><line x1="380" y1="220" x2="410" y2="220"/><line x1="392" y1="260" x2="410" y2="260"/><line x1="380" y1="300" x2="410" y2="300"/>
+            </g>
+            <g fill="#fff" font-family="DM Sans, sans-serif" font-size="16" font-style="italic"><text x="350" y="145">250</text><text x="350" y="225">150</text><text x="350" y="305">50</text></g>
+            <circle class="bolha" cx="300" cy="300" r="6" fill="#fff" opacity=".7"/>
+            <circle class="bolha" cx="330" cy="320" r="4" fill="#fff" opacity=".7"/>
+            <circle class="bolha" cx="150" cy="320" r="5" fill="#fff" opacity=".7"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="container conheca">
+        <div class="conheca-texto" data-reveal>
+          <h2>Conheça a InoveLabor</h2>
+          <p>Por que você deveria conversar conosco antes de fechar qualquer negócio</p>
+        </div>
+        <div class="conheca-cards stagger" data-reveal>
+          <div class="card-linha">
+            <svg viewBox="0 0 48 48"><path d="M4 12h24v20H4zM28 20h9l7 7v5H28zM12 36a4 4 0 1 0 0 .1M36 36a4 4 0 1 0 0 .1"/></svg>
+            <p>Entregas pontuais e seguras para todo o Brasil</p>
+          </div>
+          <div class="card-linha">
+            <svg viewBox="0 0 48 48"><circle cx="18" cy="16" r="7"/><path d="M5 40c0-8 6-13 13-13s13 5 13 13M32 10a7 7 0 0 1 0 13M36 28c4 2 7 6 7 12"/></svg>
+            <p>Equipe com experiência no mercado laboratorial</p>
+          </div>
+          <div class="card-linha">
+            <svg viewBox="0 0 48 48"><path d="M24 4l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/></svg>
+            <p>Produtos de alta qualidade e procedência</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="mvv stagger" data-reveal>
+          <div><h3>Missão</h3><p>Oferecer o mais alto padrão de produtos e transformar os laboratórios — e a vida — de profissionais e estudantes.</p></div>
+          <div><h3>Visão</h3><p>Ser referência nacional em soluções para laboratórios de ensino, pesquisa e indústria.</p></div>
+          <div><h3>Valores</h3><p>Ética, qualidade, inovação, compromisso com o cliente e paixão pela ciência.</p></div>
         </div>
       </div>
     </section>
@@ -74,116 +231,82 @@
     <!-- NÚMEROS -->
     <section class="numeros" aria-label="InoveLabor em números">
       <div class="container">
-        <div class="numeros-grid">
-          <div class="numero"><strong>+50 mil</strong><span>produtos disponíveis</span></div>
-          <div class="numero"><strong>27</strong><span>estados atendidos</span></div>
-          <div class="numero"><strong>5</strong><span>linhas de produtos</span></div>
-          <div class="numero"><strong>100%</strong><span>foco em laboratórios</span></div>
+        <div class="numeros-grid stagger" data-reveal>
+          <div class="numero"><strong><em>+</em><span data-count="50">50</span> mil</strong><span>produtos disponíveis</span></div>
+          <div class="numero"><strong><span data-count="27">27</span></strong><span>estados atendidos</span></div>
+          <div class="numero"><strong><span data-count="5">5</span></strong><span>linhas de produtos</span></div>
+          <div class="numero"><strong><span data-count="100">100</span><em>%</em></strong><span>foco em laboratórios</span></div>
         </div>
-      </div>
-    </section>
-
-    <!-- CATEGORIAS -->
-    <section class="secao" id="categorias">
-      <div class="container">
-        <div class="secao-titulo">
-          <span class="eyebrow">Nossas linhas</span>
-          <h2>Soluções completas para o seu laboratório</h2>
-          <p>Navegue pelas categorias e monte sua lista de orçamento em poucos cliques.</p>
-        </div>
-        <div class="categorias-grid" id="categorias-grid"></div>
       </div>
     </section>
 
     <!-- DESTAQUES -->
-    <section class="secao secao-alt" id="destaques-secao">
+    <section class="secao secao-alt">
       <div class="container">
-        <div class="secao-titulo">
-          <span class="eyebrow">Mais procurados</span>
-          <h2>Produtos em destaque</h2>
+        <div class="secao-titulo" data-reveal>
+          <span class="rotulo">Mais procurados</span>
+          <h2>Produtos em <strong>destaque</strong></h2>
           <p>Itens que nossos clientes mais solicitam no dia a dia.</p>
         </div>
-        <div class="produtos-grid" id="destaques"></div>
-        <div class="centro"><a href="produtos.html" class="btn">Ver todos os produtos</a></div>
-      </div>
-    </section>
-
-    <!-- SOBRE -->
-    <section class="secao" id="sobre">
-      <div class="container">
-        <div class="sobre">
-          <div class="sobre-visual" aria-hidden="true">
-            <svg viewBox="0 0 120 140" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M42 8h36M48 8v38L14 112a10 10 0 0 0 9 15h74a10 10 0 0 0 9-15L72 46V8"/>
-              <path d="M28 88h64l10 20a6 6 0 0 1-5.4 9H23.4a6 6 0 0 1-5.4-9z" fill="#22b8a7" stroke="none"/>
-              <circle cx="50" cy="74" r="4" fill="#fff" stroke="none"/>
-              <circle cx="66" cy="62" r="3" fill="#fff" stroke="none"/>
-              <circle cx="58" cy="50" r="2" fill="#fff" stroke="none"/>
-            </svg>
-            <div class="sobre-selo"><strong>2024</strong><span>Fundada por sócios com ampla experiência no mercado laboratorial.</span></div>
-          </div>
-          <div>
-            <span class="eyebrow">A Empresa</span>
-            <h2>Inovação e confiança para transformar laboratórios</h2>
-            <p>A InoveLabor é especializada na venda de produtos para laboratórios e atende clientes em todo o Brasil. Fundada por sócios com ampla experiência no mercado, nasceu com a missão de oferecer o mais alto padrão de produtos e transformar os laboratórios — e a vida — de profissionais, pesquisadores e estudantes.</p>
-            <ul class="check-list">
-              <li>Portfólio amplo de equipamentos, vidrarias, reagentes e acessórios</li>
-              <li>Marcas reconhecidas e produtos com procedência</li>
-              <li>Atendimento consultivo antes e depois da compra</li>
-              <li>Kits didáticos prontos para escolas e projetos de ensino</li>
-            </ul>
-            <a href="#contato" class="btn">Fale com um especialista</a>
-          </div>
-        </div>
-
-        <div class="mvv">
-          <div><h3>🎯 Missão</h3><p>Oferecer o mais alto padrão de produtos para laboratórios, com agilidade e atendimento próximo.</p></div>
-          <div><h3>🔭 Visão</h3><p>Ser referência nacional em soluções para laboratórios de ensino, pesquisa e indústria.</p></div>
-          <div><h3>💡 Valores</h3><p>Ética, qualidade, inovação, compromisso com o cliente e paixão pela ciência.</p></div>
-        </div>
+        <div class="produtos-grid stagger" id="destaques" data-reveal></div>
+        <div class="centro mais" data-reveal><a href="produtos.html" class="btn btn-shine">Ver todos os produtos <span class="seta">→</span></a></div>
       </div>
     </section>
 
     <!-- DIFERENCIAIS -->
-    <section class="secao secao-alt">
+    <section class="secao">
       <div class="container">
-        <div class="secao-titulo">
-          <span class="eyebrow">Por que a InoveLabor</span>
-          <h2>Mais que um fornecedor, um parceiro do seu laboratório</h2>
+        <div class="secao-titulo" data-reveal>
+          <span class="rotulo">Por que a InoveLabor</span>
+          <h2>Mais que um fornecedor, um <strong>parceiro</strong> do seu laboratório</h2>
         </div>
-        <div class="diferenciais">
-          <div class="diferencial"><span>✅</span><h3>Qualidade garantida</h3><p>Produtos selecionados de fabricantes confiáveis, com nota fiscal e garantia.</p></div>
-          <div class="diferencial"><span>⚡</span><h3>Orçamento rápido</h3><p>Monte sua lista no site e receba a proposta comercial por e-mail.</p></div>
-          <div class="diferencial"><span>📦</span><h3>Envio seguro</h3><p>Embalagem adequada para vidrarias e equipamentos sensíveis.</p></div>
-          <div class="diferencial"><span>🎓</span><h3>Suporte técnico</h3><p>Orientação na escolha e no uso de equipamentos e reagentes.</p></div>
+        <div class="diferenciais stagger" data-reveal>
+          <div class="diferencial"><span class="num">01</span><h3>Qualidade garantida</h3><p>Produtos selecionados de fabricantes confiáveis, com nota fiscal e garantia.</p></div>
+          <div class="diferencial"><span class="num">02</span><h3>Orçamento rápido</h3><p>Monte sua lista no site e receba a proposta comercial por e-mail.</p></div>
+          <div class="diferencial"><span class="num">03</span><h3>Envio seguro</h3><p>Embalagem adequada para vidrarias e equipamentos sensíveis.</p></div>
+          <div class="diferencial"><span class="num">04</span><h3>Suporte técnico</h3><p>Orientação na escolha e no uso de equipamentos e reagentes.</p></div>
         </div>
       </div>
     </section>
 
     <!-- SEGMENTOS -->
-    <section class="secao">
+    <section class="secao" id="segmentos">
       <div class="container">
-        <div class="secao-titulo">
-          <span class="eyebrow">Segmentos atendidos</span>
-          <h2>Presentes onde a ciência acontece</h2>
+        <div class="secao-titulo" data-reveal>
+          <h2>Quem confia na <strong>InoveLabor</strong></h2>
+          <p>Atendemos instituições e empresas de todo o Brasil que precisam de produtos confiáveis no dia a dia do laboratório.</p>
         </div>
-        <div class="segmentos">
-          <span>Indústria Química</span><span>Alimentos e Bebidas</span><span>Farmacêutica</span><span>Cosméticos</span>
-          <span>Universidades</span><span>Escolas</span><span>Saneamento e Tratamento de Água</span><span>Laboratórios Clínicos</span>
-          <span>Meio Ambiente</span><span>Órgãos Públicos</span><span>Agronegócio</span><span>Pesquisa e Desenvolvimento</span>
+        <div class="segmentos-grid stagger" data-reveal>
+          <a class="segmento" href="#contato"><svg class="seg-icone" viewBox="0 0 24 24"><path d="M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z"/></svg><span>Universidades</span><svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg></a>
+          <a class="segmento" href="#contato"><svg class="seg-icone" viewBox="0 0 24 24"><path d="M3 21V9l5 3V9l5 3V5h5v16zM7 17h2M12 17h2"/></svg><span>Indústrias</span><svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg></a>
+          <a class="segmento" href="#contato"><svg class="seg-icone" viewBox="0 0 24 24"><path d="m14 4 6 6M17 7l-9.5 9.5-3 .5.5-3L14.5 4.5M10 11l3 3M4 20l3-3"/></svg><span>Farmacêuticas</span><svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg></a>
+          <a class="segmento" href="#contato"><svg class="seg-icone" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 10a1.5 1.5 0 0 0 1.3 2h11.4a1.5 1.5 0 0 0 1.3-2L14 9V3"/></svg><span>Laboratórios</span><svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg></a>
+          <a class="segmento" href="#contato"><svg class="seg-icone" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2 9 2 12 0v-5M22 9v6"/></svg><span>Escolas</span><svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg></a>
+          <a class="segmento" href="#contato"><svg class="seg-icone" viewBox="0 0 24 24"><path d="M4 21h16M6 21V10M10 21V10M14 21V10M18 21V10M3 10h18L12 4z"/></svg><span>Órgãos Públicos</span><svg class="circ" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg></a>
         </div>
+      </div>
+      <!-- Faixa de logos de clientes: adicione as imagens em assets/clientes/ e descomente.
+      <div class="logos" data-reveal>
+        <div class="logos-trilha">
+          <img src="assets/clientes/cliente1.png" alt="Cliente 1">
+          <img src="assets/clientes/cliente2.png" alt="Cliente 2">
+        </div>
+      </div>
+      -->
+      <div class="segmentos faixa-texto" data-reveal>
+        <div class="marquee"><div class="marquee-trilha" data-itens="Equipamentos|Vidrarias|Reagentes|Kits Didáticos|Acessórios|Microscopia|Medição de pH|Pipetagem"></div></div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="secao" style="padding-top:0">
+    <section class="secao">
       <div class="container">
-        <div class="cta">
+        <div class="cta" data-reveal="zoom">
           <div>
             <h2>Não encontrou o que procura?</h2>
             <p>Trabalhamos com mais de 50 mil itens. Envie sua lista e nossa equipe cota para você.</p>
           </div>
-          <a href="#" class="btn btn-light" data-abrir-orcamento>Solicitar orçamento</a>
+          <a href="#" class="btn btn-light btn-shine" data-abrir-orcamento>Solicitar orçamento <span class="seta">→</span></a>
         </div>
       </div>
     </section>
@@ -191,19 +314,19 @@
     <!-- CONTATO -->
     <section class="secao secao-alt" id="contato">
       <div class="container">
-        <div class="secao-titulo">
-          <span class="eyebrow">Contato</span>
-          <h2>Fale com a InoveLabor</h2>
+        <div class="secao-titulo" data-reveal>
+          <span class="rotulo">Contato</span>
+          <h2>Fale com a <strong>InoveLabor</strong></h2>
           <p>Estamos prontos para ajudar no que o seu laboratório precisar.</p>
         </div>
         <div class="contato">
-          <div class="contato-info">
-            <div class="info-item"><span>📞</span><div><strong>Telefone</strong><p><a href="tel:+551127912239">(11) 2791-2239</a></p></div></div>
-            <div class="info-item"><span>✉️</span><div><strong>E-mail</strong><p><a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></p></div></div>
-            <div class="info-item"><span>📍</span><div><strong>Endereço</strong><p>Rua Paraisópolis, 305 – Cidade Patriarca<br>São Paulo – SP</p></div></div>
-            <div class="info-item"><span>🕗</span><div><strong>Horário de atendimento</strong><p>Segunda a sexta, das 8h30 às 18h</p></div></div>
+          <div class="contato-info stagger" data-reveal>
+            <div class="info-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><div><strong>Telefone</strong><p><a href="tel:+551127912239">(11) 2791-2239</a></p></div></div>
+            <div class="info-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><strong>E-mail</strong><p><a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></p></div></div>
+            <div class="info-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><strong>Endereço</strong><p>Rua Paraisópolis, 305 – Cidade Patriarca<br>São Paulo – SP</p></div></div>
+            <div class="info-item"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>Horário de atendimento</strong><p>Segunda a sexta, das 8h30 às 18h</p></div></div>
           </div>
-          <form class="form" id="form-contato">
+          <form class="form" id="form-contato" data-reveal="right">
             <div class="form-linha">
               <label>Nome<input name="nome" required autocomplete="name"></label>
               <label>Telefone<input name="telefone" type="tel" autocomplete="tel"></label>
@@ -219,7 +342,7 @@
               </select>
             </label>
             <label>Mensagem<textarea name="mensagem" required placeholder="Conte o que você precisa..."></textarea></label>
-            <button type="submit" class="btn btn-block">Enviar mensagem</button>
+            <button type="submit" class="btn btn-block btn-shine">Enviar mensagem</button>
             <small>Ao enviar, seu programa de e-mail será aberto com a mensagem pronta para vendas@inovelabor.com.br.</small>
           </form>
         </div>
@@ -232,7 +355,7 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <a href="index.html" class="footer-logo"><img src="assets/logo.svg" alt="InoveLabor" width="150" height="34"></a>
+          <a href="index.html" class="footer-logo"><img src="assets/logo-branco.svg" alt="InoveLabor" width="190" height="42"></a>
           <p>Produtos para laboratórios com qualidade, procedência e atendimento especializado para todo o Brasil.</p>
         </div>
         <div>
@@ -256,10 +379,10 @@
         <div>
           <h4>Atendimento</h4>
           <ul>
-            <li>📞 <a href="tel:+551127912239">(11) 2791-2239</a></li>
-            <li>✉️ <a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></li>
-            <li>📍 Rua Paraisópolis, 305 – Cidade Patriarca, São Paulo – SP</li>
-            <li>🕗 Seg. a Sex. das 8h30 às 18h</li>
+            <li><a href="tel:+551127912239">(11) 2791-2239</a></li>
+            <li><a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></li>
+            <li>Rua Paraisópolis, 305 – Cidade Patriarca, São Paulo – SP</li>
+            <li>Seg. a Sex. das 8h30 às 18h</li>
           </ul>
         </div>
       </div>
@@ -270,12 +393,17 @@
     </div>
   </footer>
 
+  <!-- WHATSAPP -->
+  <a class="whats" data-whatsapp target="_blank" rel="noopener" aria-label="Fale conosco pelo WhatsApp">
+    <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.7 5 2.1.9 3 1 4 .8.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"/></svg>
+  </a>
+
   <!-- DRAWER DE ORÇAMENTO -->
   <div class="drawer" id="orcamento" aria-hidden="true">
     <div class="drawer-fundo" data-fechar></div>
     <aside class="drawer-painel" role="dialog" aria-labelledby="orc-titulo">
       <div class="drawer-topo">
-        <h2 id="orc-titulo">🧾 Meu orçamento</h2>
+        <h2 id="orc-titulo">Meu orçamento</h2>
         <button type="button" data-fechar aria-label="Fechar">✕</button>
       </div>
       <div class="drawer-corpo">
