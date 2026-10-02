@@ -10,6 +10,13 @@
   var reduzMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var STORAGE_KEY = "inovelabor-orcamento";
 
+  function esc(v) {
+    return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  var formatoPreco = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+
   // ---------- Orçamento (lista de itens salva no navegador) ----------
   function lerOrcamento() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (e) { return []; }
@@ -60,8 +67,8 @@
       return;
     }
     lista.innerHTML = itens.map(function (i) {
-      return '<div class="orc-item" data-sku="' + i.sku + '">' +
-        '<div><strong>' + i.nome + '</strong><small>' + i.sku + '</small></div>' +
+      return '<div class="orc-item" data-sku="' + esc(i.sku) + '">' +
+        '<div><strong>' + esc(i.nome) + '</strong><small>' + esc(i.sku) + '</small></div>' +
         '<div class="orc-qtd">' +
           '<button type="button" data-acao="menos" aria-label="Diminuir">−</button>' +
           '<span>' + i.qtd + '</span>' +
@@ -125,23 +132,44 @@
   // ---------- Cartão de produto ----------
   function cardProduto(p) {
     var cat = (window.CATEGORIAS || []).find(function (c) { return c.id === p.categoria; }) || {};
+    var icone = '<span>' + (cat.icone || "🔬") + '</span>';
+    var thumb = p.imagem
+      ? '<img src="' + esc(p.imagem) + '" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement(\'span\'),{textContent:\'' + (cat.icone || "🔬") + '\'}))">'
+      : icone;
+    var preco = "";
+    if (typeof p.preco === "number" && p.preco > 0) {
+      preco = '<div class="produto-preco">' +
+        (p.precoDe ? '<s>' + formatoPreco.format(p.precoDe) + '</s>' : "") +
+        '<strong>' + formatoPreco.format(p.preco) + '</strong></div>';
+    }
+    var nome = p.url
+      ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.nome) + '</a>'
+      : esc(p.nome);
     return '<article class="produto">' +
-      '<div class="produto-thumb" aria-hidden="true"><span>' + (cat.icone || "🔬") + '</span></div>' +
-      '<span class="produto-tag">' + (cat.nome || "") + ' · ' + p.sub + '</span>' +
-      '<h3>' + p.nome + '</h3>' +
-      '<p>' + p.desc + '</p>' +
-      '<div class="produto-rodape"><small>' + p.sku + '</small>' +
-      '<button type="button" class="btn btn-sm" data-add="' + p.sku + '">+ Orçamento</button></div>' +
+      '<div class="produto-thumb' + (p.imagem ? " com-foto" : "") + '" aria-hidden="true">' + thumb +
+      (p.disponivel === false ? '<span class="produto-selo">Sob consulta</span>' : "") + '</div>' +
+      '<span class="produto-tag">' + esc(cat.nome || "") + (p.sub && p.sub !== cat.nome ? ' · ' + esc(p.sub) : "") + '</span>' +
+      '<h3>' + nome + '</h3>' +
+      '<p>' + esc(p.desc) + '</p>' + preco +
+      '<div class="produto-rodape"><small>' + esc(p.sku) + '</small>' +
+      '<div class="produto-acoes">' +
+      (p.url ? '<a class="btn btn-sm btn-linha" href="' + esc(p.url) + '" target="_blank" rel="noopener">Comprar</a>' : "") +
+      '<button type="button" class="btn btn-sm" data-add="' + esc(p.sku) + '">+ Orçamento</button></div></div>' +
       '</article>';
   }
 
   // Destaques na home
   var destaques = document.getElementById("destaques");
   if (destaques && window.PRODUTOS) {
-    var skus = ["IL-EQ-001", "IL-EQ-003", "IL-VD-002", "IL-AC-001", "IL-KT-002", "IL-EQ-009", "IL-RG-006", "IL-EQ-006"];
-    destaques.innerHTML = skus.map(function (s) {
-      return window.PRODUTOS.find(function (p) { return p.sku === s; });
-    }).filter(Boolean).map(cardProduto).join("");
+    var escolhidos = window.PRODUTOS.filter(function (p) { return p.destaque; });
+    if (!escolhidos.length) {
+      escolhidos = ["IL-EQ-001", "IL-EQ-003", "IL-VD-002", "IL-AC-001", "IL-KT-002", "IL-EQ-009", "IL-RG-006", "IL-EQ-006"]
+        .map(function (s) { return window.PRODUTOS.find(function (p) { return p.sku === s; }); }).filter(Boolean);
+    }
+    if (escolhidos.length < 8) {
+      escolhidos = escolhidos.concat(window.PRODUTOS.filter(function (p) { return p.imagem && escolhidos.indexOf(p) === -1; }));
+    }
+    destaques.innerHTML = escolhidos.slice(0, 8).map(cardProduto).join("");
   }
 
   // Categorias na home
@@ -162,6 +190,12 @@
     var filtros = document.getElementById("filtros");
     var busca = document.getElementById("busca");
     var resumo = document.getElementById("catalogo-resumo");
+    var POR_PAGINA = 24, mostrar = POR_PAGINA;
+    var maisBtn = document.createElement("button");
+    maisBtn.type = "button";
+    maisBtn.className = "btn btn-shine catalogo-mais";
+    maisBtn.hidden = true;
+    catalogo.insertAdjacentElement("afterend", maisBtn);
     var params = new URLSearchParams(location.search);
     var ativa = params.get("categoria") || location.hash.slice(1) || "todas";
     if (ativa !== "todas" && !window.CATEGORIAS.some(function (c) { return c.id === ativa; })) ativa = "todas";
@@ -169,7 +203,7 @@
     if (params.get("q")) busca.value = params.get("q");
 
     filtros.innerHTML = [{ id: "todas", nome: "Todas" }].concat(window.CATEGORIAS).map(function (c) {
-      return '<button type="button" class="chip" data-cat="' + c.id + '">' + c.nome + '</button>';
+      return '<button type="button" class="chip" data-cat="' + esc(c.id) + '">' + esc(c.nome) + '</button>';
     }).join("");
 
     function normalizar(s) { return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
@@ -182,7 +216,10 @@
           (!q || normalizar(p.nome + " " + p.desc + " " + p.sub + " " + p.sku).indexOf(q) !== -1);
       });
       resumo.textContent = lista.length + (lista.length === 1 ? " produto encontrado" : " produtos encontrados");
-      catalogo.innerHTML = lista.length ? lista.map(function (p, i) { return cardProduto(p).replace('<article class="produto">', '<article class="produto" style="--i:' + Math.min(i, 12) + '">'); }).join("")
+      var visiveis = lista.slice(0, mostrar);
+      maisBtn.hidden = lista.length <= mostrar;
+      maisBtn.textContent = "Mostrar mais produtos (" + (lista.length - visiveis.length) + " restantes)";
+      catalogo.innerHTML = lista.length ? visiveis.map(function (p, i) { return cardProduto(p).replace('<article class="produto">', '<article class="produto" style="--i:' + Math.min(i % POR_PAGINA, 12) + '">'); }).join("")
         : '<p class="catalogo-vazio">Nenhum produto encontrado. Não achou o que procura? <a href="#" data-abrir-orcamento>Peça um orçamento personalizado</a> — trabalhamos com mais de 50 mil itens.</p>';
     }
 
@@ -190,9 +227,11 @@
       var b = e.target.closest(".chip");
       if (!b) return;
       ativa = b.dataset.cat;
+      mostrar = POR_PAGINA;
       render();
     });
-    busca.addEventListener("input", render);
+    busca.addEventListener("input", function () { mostrar = POR_PAGINA; render(); });
+    maisBtn.addEventListener("click", function () { mostrar += POR_PAGINA; render(); });
     render();
   }
 

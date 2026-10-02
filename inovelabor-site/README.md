@@ -41,6 +41,32 @@ Também há contadores animados, revelação de seções ao rolar e respeito à 
 
 > **Antes de publicar:** confirme o número do WhatsApp em `js/main.js` (`CONTATO.whatsapp`; hoje está com o telefone fixo) e os números da seção "InoveLabor em números".
 
+## Catálogo sincronizado com a loja Tray
+
+O script `scripts/sync-tray.mjs` lê os produtos visíveis da loja pela API oficial da Tray e gera `js/produtos.js`. O resultado inclui nome, foto, preço (com promoção), categoria e subcategoria, descrição curta, disponibilidade, destaque e link para comprar na loja. Requer Node 18 ou mais novo e nenhuma dependência.
+
+### 1. Criar o acesso (uma vez)
+1. Crie uma conta em [developers.tray.com.br](https://developers.tray.com.br/) e cadastre um aplicativo. Você recebe `consumer_key` e `consumer_secret`.
+2. Logado no painel da loja, abra:
+   `https://www.inovelabor.com.br/auth.php?response_type=code&consumer_key=SUA_CONSUMER_KEY&callback=https://www.inovelabor.com.br/`
+3. Autorize. O navegador volta para a loja com `code=...` e `api_address=...` no endereço. Copie os dois. O `code` vale só para um uso.
+
+### 2. Rodar
+```bash
+export TRAY_API_ADDRESS="https://www.inovelabor.com.br/web_api"   # o api_address do passo 3
+export TRAY_CONSUMER_KEY="..."  TRAY_CONSUMER_SECRET="..."  TRAY_CODE="..."
+node scripts/sync-tray.mjs
+```
+Na primeira execução o script troca o `code` por tokens e os guarda em `.tray-tokens.json` (ignorado pelo git). Nas próximas ele reutiliza e renova sozinho: o token de acesso dura 3 horas e o de renovação, 30 dias. Se ficar mais de 30 dias sem rodar, repita o passo 1.3.
+
+Alternativas: `TRAY_ACCESS_TOKEN` (token válido) ou `TRAY_REFRESH_TOKEN`.
+
+### Depois da sincronização
+- As categorias do site passam a ser as categorias principais da Tray. Os 4 blocos da home apontam para `produtos.html#equipamentos`, `#vidrarias`, `#reagentes` e `#kits`. Se o nome de alguma categoria na Tray for diferente, ajuste o link no `index.html`. Links desconhecidos abrem o catálogo em "Todas".
+- Os "Produtos em destaque" da home usam os produtos marcados como **destaque** na Tray.
+- Produtos sem estoque ou indisponíveis aparecem com o selo "Sob consulta" e continuam podendo entrar no orçamento.
+- Na prévia em claude.ai as fotos da loja não carregam (o ambiente bloqueia imagens externas) e aparecem como ícone. No site publicado elas carregam normalmente.
+
 ## Estrutura
 
 ```
@@ -49,12 +75,13 @@ produtos.html    Catálogo com filtros por categoria e busca
 css/style.css    Estilos (variáveis de cor no topo)
 js/produtos.js   Lista de categorias e produtos: edite aqui para atualizar o catálogo
 js/main.js       Orçamento, filtros, busca, menu mobile e formulários
+scripts/         sync-tray.mjs: importa o catálogo da loja Tray
 assets/          Logos (normal e branco) e favicon em SVG
 ```
 
 ## Como editar
 
-- **Produtos:** edite `js/produtos.js`. Cada item tem `sku`, `nome`, `categoria`, `sub` e `desc`.
+- **Produtos:** rode a sincronização com a Tray (acima). Sem ela, `js/produtos.js` traz 38 produtos de exemplo.
 - **Contatos:** telefone, e-mail e endereço estão em `index.html` (topbar, contato e rodapé) e `js/main.js` (`CONTATO`).
 - **Cores e fonte:** variáveis `--navy`, `--teal`, `--teal-2` e `--font` no início de `css/style.css`.
 - **Números da home** (seção "InoveLabor em números"): revise para refletir dados reais da empresa.

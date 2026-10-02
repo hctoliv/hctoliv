@@ -576,3 +576,22 @@ h1, h2, h3 { font-family: var(--font); color: var(--navy); line-height: 1.15; ma
 .page-hero .hero-titulo strong { font-weight: 400; color: #7fd8e0; }
 .nav-drop > button.ativo { color: var(--teal-2); }
 .badge[hidden] { display: none; }
+
+/* Produtos vindos da Tray: foto, preço, selo e link para a loja */
+.produto-thumb { position: relative; }
+.produto-thumb.com-foto { background: #fff; }
+.produto-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 10px; transition: transform .7s var(--ease); }
+.produto:hover .produto-thumb img { transform: scale(1.07); }
+.produto-selo { position: absolute; top: 10px; left: 10px; background: var(--navy); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 4px 8px; }
+.produto h3 a { color: inherit; }
+.produto h3 a:hover { color: var(--teal); }
+.produto-preco { display: flex; align-items: baseline; gap: 8px; margin: -6px 0 16px; }
+.produto-preco strong { font-size: 20px; font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; }
+.produto-preco s { color: #8a98a3; font-size: 13px; }
+.produto-rodape { flex-wrap: wrap; }
+.produto-acoes { display: flex; gap: 6px; }
+.btn-linha { background: transparent; color: var(--teal); box-shadow: inset 0 0 0 1.5px var(--teal); }
+.btn-linha:hover { background: var(--teal); color: #fff; box-shadow: none; }
+.catalogo-mais { display: flex; margin: 48px auto 0; }
+.catalogo-mais[hidden] { display: none; }
+.produto p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
