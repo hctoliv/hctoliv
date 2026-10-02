@@ -140,7 +140,8 @@
     if (typeof p.preco === "number" && p.preco > 0) {
       preco = '<div class="produto-preco">' +
         (p.precoDe ? '<s>' + formatoPreco.format(p.precoDe) + '</s>' : "") +
-        '<strong>' + formatoPreco.format(p.preco) + '</strong></div>';
+        '<strong>' + formatoPreco.format(p.preco) + '</strong>' +
+        (window.CATALOGO_ORIGEM === "site" ? '<small>à vista</small>' : "") + '</div>';
     }
     var nome = p.url
       ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.nome) + '</a>'
@@ -259,6 +260,122 @@
         "&body=" + encodeURIComponent(corpo);
     });
   }
+
+  // ---------- Seções alimentadas pelo catálogo ----------
+  var CATS = window.CATEGORIAS || [];
+  var PRODS = window.PRODUTOS || [];
+  function contar(id) { return PRODS.filter(function (p) { return p.categoria === id; }).length; }
+
+  // Mega menu de produtos
+  var mega = document.getElementById("menu-categorias");
+  if (mega && CATS.length) {
+    mega.innerHTML = '<a href="produtos.html">Todos os produtos <small>' + PRODS.length + '</small></a>' +
+      CATS.map(function (c) {
+        return '<a href="produtos.html#' + esc(c.id) + '">' + esc(c.nome) + ' <small>' + contar(c.id) + '</small></a>';
+      }).join("");
+  }
+
+  // Blocos de categoria: ligam-se à categoria real cujo id contém o trecho indicado
+  document.querySelectorAll("[data-cat-match]").forEach(function (a) {
+    var cat = CATS.find(function (c) { return c.id.indexOf(a.dataset.catMatch) !== -1; });
+    if (!cat) return;
+    a.href = "produtos.html#" + cat.id;
+    var mais = a.querySelector(".bloco-mais");
+    if (mais) mais.textContent = "Ver " + contar(cat.id) + " produtos →";
+  });
+
+  // Números
+  var marcas = {};
+  PRODS.forEach(function (p) { if (p.marca && !/^inovelabor$/i.test(p.marca)) marcas[p.marca] = (marcas[p.marca] || 0) + 1; });
+  var listaMarcas = Object.keys(marcas).sort(function (a, b) { return marcas[b] - marcas[a]; });
+  var stats = {
+    produtos: PRODS.length >= 100 ? "+" + Math.floor(PRODS.length / 10) * 10 : String(PRODS.length),
+    categorias: String(CATS.length),
+    marcas: listaMarcas.length ? (listaMarcas.length >= 10 ? "+" + Math.floor(listaMarcas.length / 5) * 5 : String(listaMarcas.length)) : null
+  };
+  document.querySelectorAll("[data-stat]").forEach(function (el) {
+    var v = stats[el.dataset.stat];
+    if (v) el.textContent = v; else el.closest(".numero").hidden = true;
+  });
+
+  // Faixa de losangos de ponta a ponta
+  var linhaPontos = document.querySelector(".pontos-linha");
+  if (linhaPontos) {
+    var colunas = Math.ceil(Math.min(window.innerWidth, 2400) / 40), html = "";
+    for (var k = 0; k < colunas * 3; k++) {
+      html += '<i' + (Math.random() < 0.15 ? ' class="forte"' : "") + ' style="--dur:' + (2 + Math.random() * 3).toFixed(2) +
+        's;--atraso:-' + (Math.random() * 5).toFixed(2) + 's"></i>';
+    }
+    linhaPontos.innerHTML = html;
+  }
+
+  // Fotos flutuantes de "Monte seu laboratório": uma por categoria, das maiores linhas
+  var monte = document.getElementById("monte-fotos");
+  if (monte) {
+    var fotos = [];
+    CATS.forEach(function (c) {
+      if (fotos.length >= 3) return;
+      var p = PRODS.find(function (x) { return x.categoria === c.id && x.imagem; });
+      if (p) fotos.push(p);
+    });
+    monte.innerHTML = fotos.map(function (p) {
+      return '<figure><img src="' + esc(p.imagem) + '" alt="" loading="lazy"></figure>';
+    }).join("");
+    if (!fotos.length) monte.hidden = true;
+  }
+
+  // Letreiro de marcas
+  var trilhaMarcas = document.getElementById("marcas-trilha");
+  if (trilhaMarcas) {
+    var top = listaMarcas.slice(0, 16);
+    if (top.length < 3) { trilhaMarcas.closest(".marcas").hidden = true; }
+    else {
+      var item = top.map(function (m) { return "<span>" + esc(m) + "</span>"; }).join("");
+      var copia = top.map(function (m) { return '<span aria-hidden="true">' + esc(m) + "</span>"; }).join("");
+      trilhaMarcas.innerHTML = item + copia;
+    }
+  }
+
+  // Carrossel de linhas de produto com arte de ondas
+  var linhasSlides = document.getElementById("linhas-slides");
+  if (linhasSlides && CATS.length) {
+    var arte = document.querySelector(".linhas-arte");
+    if (arte) {
+      var caminhos = "";
+      for (var n = 0; n < 22; n++) {
+        var y = 40 + n * 15, amp = 40 + n * 3;
+        caminhos += '<path style="animation-delay:-' + (n * 0.3).toFixed(1) + 's" d="M0 ' + y + ' C 150 ' + (y - amp) + ', 300 ' + (y + amp) + ', 450 ' + y + ' S 600 ' + (y - amp / 2) + ', 650 ' + y + '"/>';
+      }
+      arte.innerHTML = caminhos;
+    }
+    var seis = CATS.slice(0, 6);
+    linhasSlides.innerHTML = seis.map(function (c, i) {
+      var n = contar(c.id);
+      return '<div class="linha-slide' + (i === 0 ? " ativo" : "") + '">' +
+        '<span class="grande">+' + n + " " + esc(c.nome) + '</span>' +
+        '<h3>Linha completa</h3><p>' + n + ' itens de ' + esc(c.nome.toLowerCase()) + ' com foto, preço e compra direta na loja.</p>' +
+        '<a href="produtos.html#' + esc(c.id) + '">Ver a linha →</a></div>';
+    }).join("");
+    var pontosLinhas = document.getElementById("linhas-pontos");
+    pontosLinhas.innerHTML = seis.map(function (_, i) { return '<button type="button" aria-label="Linha ' + (i + 1) + '"' + (i === 0 ? ' class="ativo"' : "") + "></button>"; }).join("");
+    var slidesL = linhasSlides.children, botoesL = pontosLinhas.children, atualL = 0, timerL;
+    function mostrarLinha(i) {
+      slidesL[atualL].classList.remove("ativo"); botoesL[atualL].classList.remove("ativo");
+      atualL = (i + slidesL.length) % slidesL.length;
+      slidesL[atualL].classList.add("ativo"); botoesL[atualL].classList.add("ativo");
+      clearTimeout(timerL);
+      if (!reduzMovimento) timerL = setTimeout(function () { mostrarLinha(atualL + 1); }, 5000);
+    }
+    Array.prototype.forEach.call(botoesL, function (b, i) { b.addEventListener("click", function () { mostrarLinha(i); }); });
+    if (!reduzMovimento) timerL = setTimeout(function () { mostrarLinha(1); }, 5000);
+  }
+
+  // FAQ: abre uma pergunta por vez
+  document.querySelectorAll(".faq-item").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (d.open) document.querySelectorAll(".faq-item[open]").forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
 
   // ---------- WhatsApp ----------
   document.querySelectorAll("[data-whatsapp]").forEach(function (a) {

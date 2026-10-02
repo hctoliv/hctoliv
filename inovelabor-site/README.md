@@ -45,12 +45,14 @@ Também há contadores animados, revelação de seções ao rolar e respeito à 
 
 `scripts/importar-loja.mjs` percorre o site da loja, primeiro pelo `sitemap.xml` e, sem ele, navegando pelos links. Em cada página de produto lê os dados estruturados (JSON-LD/og): nome, foto, preço, código, marca, descrição, disponibilidade, categoria (pelo breadcrumb ou pela URL) e link. O resultado vai para `js/produtos.js`.
 
+Em ambientes com proxy (como o Claude Code na nuvem), o `fetch` do Node precisa de `NODE_USE_ENV_PROXY=1` (Node 22.21+).
+
 ```bash
 node scripts/importar-loja.mjs                   # fotos ficam apontando para a loja
 node scripts/importar-loja.mjs --baixar-imagens  # salva as fotos em assets/produtos/
 LIMITE=50 node scripts/importar-loja.mjs         # importa só os 50 primeiros (teste rápido)
 ```
-Use `--baixar-imagens` quando quiser que as fotos apareçam também na prévia em claude.ai ou em hospedagens que não permitem imagens externas. Com milhares de produtos a pasta fica grande, então para o site publicado o padrão (fotos da loja) é mais leve.
+Com `--baixar-imagens` e o ImageMagick instalado, cada foto vira WebP de até 600px (≈10 KB). Use essa opção quando quiser que as fotos apareçam também na prévia em claude.ai ou em hospedagens que não permitem imagens externas. Com milhares de produtos a pasta fica grande, então para o site publicado o padrão (fotos da loja) é mais leve.
 
 ## Catálogo sincronizado com a loja Tray
 

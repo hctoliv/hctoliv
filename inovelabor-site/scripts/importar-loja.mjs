@@ -15,7 +15,9 @@
 // Uma página é tratada como produto quando tem dados estruturados de Produto (JSON-LD,
 // microdados ou og:type=product). As categorias vêm do breadcrumb ou do 1º trecho da URL.
 
-import { mkdir, writeFile, access } from "node:fs/promises";
+import { mkdir, writeFile, access, unlink } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -38,7 +40,16 @@ async function baixar(url, tipo = "text", tentativa = 0) {
     const res = await fetch(url, { headers: { "User-Agent": UA, Accept: tipo === "text" ? "text/html,application/xml;q=0.9,*/*;q=0.8" : "*/*" }, redirect: "follow" });
     if (res.status === 429 || res.status >= 500) throw Object.assign(new Error("HTTP " + res.status), { tentar: true });
     if (!res.ok) return null;
-    return tipo === "text" ? { url: res.url, corpo: await res.text(), tipo: res.headers.get("content-type") || "" }
+    if (tipo === "text") {
+      const bytes = Buffer.from(await res.arrayBuffer());
+      const ct = res.headers.get("content-type") || "";
+      let cs = (ct.match(/charset=([\w-]+)/i) || [])[1];
+      if (!cs) cs = (bytes.subarray(0, 4096).toString("latin1").match(/<meta[^>]+charset=["']?([\w-]+)/i) || [])[1];
+      let dec;
+      try { dec = new TextDecoder(cs || "utf-8"); } catch { dec = new TextDecoder("utf-8"); }
+      return { url: res.url, corpo: dec.decode(bytes), tipo: ct };
+    }
+    return tipo === "text" ? null
       : { url: res.url, corpo: Buffer.from(await res.arrayBuffer()), tipo: res.headers.get("content-type") || "" };
   } catch (e) {
     if (tentativa < 3) { await esperar(1000 * 2 ** tentativa); return baixar(url, tipo, tentativa + 1); }
@@ -63,12 +74,16 @@ async function emLotes(itens, fn) {
 }
 
 // ---------- Texto ----------
-const ENT = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", ordm: "º", ordf: "ª", deg: "°", micro: "µ" };
+const ENT = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", ordm: "º", ordf: "ª", deg: "°", micro: "µ",
+  rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“", ndash: "–", mdash: "—", hellip: "…", bull: "•", middot: "·", times: "×",
+  plusmn: "±", sup2: "²", sup3: "³", frac12: "½", reg: "®", copy: "©", trade: "™", ccedil: "ç", Ccedil: "Ç",
+  aacute: "á", eacute: "é", iacute: "í", oacute: "ó", uacute: "ú", atilde: "ã", otilde: "õ", acirc: "â", ecirc: "ê", ocirc: "ô",
+  agrave: "à", Aacute: "Á", Eacute: "É", Iacute: "Í", Oacute: "Ó", Uacute: "Ú", Atilde: "Ã", Otilde: "Õ", Acirc: "Â", Ecirc: "Ê", Ocirc: "Ô", uuml: "ü" };
 function decodificar(s) {
   return String(s || "")
     .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
-    .replace(/&([a-z]+);/gi, (m, n) => ENT[n.toLowerCase()] ?? m);
+    .replace(/&([a-z0-9]+);/gi, (m, n) => ENT[n] ?? ENT[n.toLowerCase()] ?? m);
 }
 function semHtml(s) {
   return decodificar(String(s || "").replace(/<style[\s\S]*?<\/style>|<script[\s\S]*?<\/script>/gi, " ").replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, " "))
@@ -79,6 +94,13 @@ function resumir(s, max = 170) {
   if (s.length <= max) return s;
   const corte = s.lastIndexOf(" ", max);
   return s.slice(0, corte > 60 ? corte : max).replace(/[,.;:\-–]+$/, "") + "…";
+}
+function descricao(og, alternativa) {
+  let t = semHtml(og);
+  if (/\.{2,}\s*$/.test(t)) t = t.replace(/\.{2,}\s*$/, "").replace(/\s+\S*$/, "") + "…"; // a loja corta no meio da palavra
+  if (!t) t = semHtml(alternativa);
+  t = t.replace(/^[\s.;,:•\-–]+/, "").replace(/\s*([;:])\s*\.\s*/g, "$1 ").replace(/\s+\.\s+/g, ". ");
+  return resumir(t);
 }
 function slug(s) {
   return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -168,7 +190,7 @@ function extrairProduto(html, url) {
   const imgsLd = p ? [].concat(p.image || []).map((i) => (typeof i === "object" ? i.url || i.contentUrl : i)) : [];
   const imagem = absoluta(imgsLd[0] || meta(html, "og:image") || meta(html, "image") || "", url);
 
-  const nome = semHtml(p?.name || meta(html, "og:title") || html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "");
+  const nome = semHtml(p?.name || meta(html, "og:title").replace(/\s+-\s+[^-]+$/, "") || html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "");
   if (!nome) return null;
   const valor = preco(ofertaItem.price ?? ofertaItem.lowPrice ?? meta(html, "product:price:amount") ?? meta(html, "price"));
   const disp = String(ofertaItem.availability || meta(html, "product:availability") || "").toLowerCase();
@@ -184,6 +206,13 @@ function extrairProduto(html, url) {
     catNome = nomes[0] || "";
     subNome = nomes.length > 1 ? nomes[nomes.length - 1] : "";
   }
+  const bd = html.match(/"breadcrumbDetails"\s*:\s*(\[[^\]]*\])/);
+  if (bd) {
+    try {
+      const niveis = JSON.parse(bd[1]).sort((a, b) => a.level - b.level);
+      if (niveis.length) { catNome = niveis[0].name; subNome = niveis.length > 1 ? niveis[niveis.length - 1].name : ""; }
+    } catch { /* formato inesperado */ }
+  }
   const partes = new URL(url).pathname.split("/").filter(Boolean);
   if (!catNome && partes.length > 1) catNome = tituloDeSlug(partes[0]);
   if (!catNome && p?.category) catNome = semHtml(String(p.category).split(/[>/]/)[0]);
@@ -193,7 +222,7 @@ function extrairProduto(html, url) {
     nome,
     sku: semHtml(p?.sku || p?.mpn || meta(html, "product:retailer_item_id") || ""),
     marca: semHtml(typeof p?.brand === "object" ? p.brand.name : p?.brand || ""),
-    desc: resumir(p?.description || meta(html, "og:description") || meta(html, "description")),
+    desc: descricao(meta(html, "og:description"), p?.description || meta(html, "description")),
     imagem,
     url,
     preco: valor,
@@ -204,16 +233,40 @@ function extrairProduto(html, url) {
 }
 
 // ---------- Imagens ----------
+// Com ImageMagick instalado, as fotos viram WebP de até 600px (≈10 KB cada); sem ele, ficam no formato original.
+const exec = promisify(execFile);
+let conversor;
+async function acharConversor() {
+  if (conversor !== undefined) return conversor;
+  for (const c of ["magick", "convert"]) {
+    try { await exec(c, ["-version"]); conversor = c; return c; } catch { /* tenta o próximo */ }
+  }
+  console.warn("  ImageMagick não encontrado: fotos ficarão no tamanho original.");
+  return (conversor = null);
+}
+async function existe(f) { try { await access(f); return true; } catch { return false; } }
+
 async function salvarImagem(urlImg, nomeBase) {
   if (!urlImg) return null;
+  const webp = path.join(PASTA_IMG, `${nomeBase}.webp`);
+  if (await existe(webp)) return `assets/produtos/${nomeBase}.webp`;
   const ext = (urlImg.match(/\.(jpe?g|png|webp|gif)(\?|$)/i)?.[1] || "jpg").toLowerCase().replace("jpeg", "jpg");
-  const arquivo = `${nomeBase}.${ext}`;
-  const destino = path.join(PASTA_IMG, arquivo);
-  try { await access(destino); return `assets/produtos/${arquivo}`; } catch { /* ainda não existe */ }
+  const original = path.join(PASTA_IMG, `${nomeBase}.${ext}`);
+  if (ext !== "webp" && await existe(original)) return `assets/produtos/${nomeBase}.${ext}`;
   const r = await baixar(urlImg, "bin");
   if (!r || !/^image\//.test(r.tipo)) return null;
-  await writeFile(destino, r.corpo);
-  return `assets/produtos/${arquivo}`;
+  const c = await acharConversor();
+  if (c) {
+    const temp = original + ".tmp";
+    await writeFile(temp, r.corpo);
+    try {
+      await exec(c, [temp + "[0]", "-resize", "600x600>", "-background", "white", "-alpha", "remove", "-quality", "80", webp]);
+      await unlink(temp);
+      return `assets/produtos/${nomeBase}.webp`;
+    } catch { await unlink(temp).catch(() => {}); }
+  }
+  await writeFile(original, r.corpo);
+  return `assets/produtos/${nomeBase}.${ext}`;
 }
 
 // ---------- Principal ----------
@@ -292,7 +345,7 @@ async function main() {
     if (skus.has(sku)) { let i = 2; while (skus.has(`${sku}-${i}`)) i++; sku = `${sku}-${i}`; }
     skus.add(sku);
     lista.push({
-      sku, nome: p.nome, categoria: idCat,
+      sku, nome: p.nome, categoria: idCat, marca: p.marca || null,
       sub: p.subNome && p.subNome !== p.catNome ? p.subNome : (p.marca || p.catNome),
       desc: p.desc || "Consulte especificações na loja.",
       imagem: p.imagem || null, url: p.url, preco: p.preco, precoDe: null,

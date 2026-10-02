@@ -595,3 +595,169 @@ h1, h2, h3 { font-family: var(--font); color: var(--navy); line-height: 1.15; ma
 .catalogo-mais { display: flex; margin: 48px auto 0; }
 .catalogo-mais[hidden] { display: none; }
 .produto p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* =========================================================
+   Estrutura completa no padrão Halogenn, personalizada
+   ========================================================= */
+/* Redes sociais no header e rodapé */
+.sociais { display: flex; gap: 14px; align-items: center; }
+.sociais a { color: #cfe1ea; display: grid; place-items: center; transition: color .3s, transform .3s var(--ease); }
+.sociais a:hover { color: var(--teal-2); transform: translateY(-2px); }
+.sociais svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.header-acoes .sociais { margin-right: 10px; }
+
+/* Mega menu de produtos */
+.nav-drop-menu.mega { position: fixed; left: 0; right: 0; top: 96px; min-width: 0; padding: 34px max(24px, calc((100vw - var(--max)) / 2 + 24px)) 38px; background: var(--navy); border-top: 1px solid rgba(255,255,255,.08); box-shadow: 0 30px 50px rgba(0,0,0,.3); }
+.header.scrolled .nav-drop-menu.mega { top: 74px; }
+.mega-titulo { color: #fff; font-size: 22px; margin: 0 0 22px; }
+.mega-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px 30px; }
+.nav-drop-menu.mega a { color: #cfe1ea; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; justify-content: space-between; gap: 10px; }
+.nav-drop-menu.mega a small { color: var(--teal-2); font-size: 13px; }
+.nav-drop-menu.mega a:hover { background: none; color: var(--teal-2); padding-left: 6px; }
+
+/* Números em linha */
+.numeros { padding: 90px 0 30px; }
+.numeros-linha { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px 40px; }
+.numeros-linha .numero { display: flex; align-items: center; gap: 14px; padding: 0; border: 0; }
+.numeros-linha .numero strong { font-size: clamp(38px, 4vw, 56px); color: var(--teal); font-weight: 400; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.numeros-linha .numero > span { color: var(--navy); font-size: 15px; line-height: 1.3; text-transform: none; letter-spacing: 0; }
+
+/* Faixa de pontos de ponta a ponta */
+.faixa-pontos { overflow: hidden; padding: 40px 0 10px; }
+.pontos-linha { display: grid; grid-template-columns: repeat(auto-fill, 40px); justify-content: center; row-gap: 26px; }
+.pontos-linha i { justify-self: center; width: 8px; height: 8px; background: var(--teal-2); transform: rotate(45deg); opacity: .35; animation: piscar var(--dur, 3s) ease-in-out infinite var(--atraso, 0s); }
+.pontos-linha i.forte { opacity: 1; background: var(--teal); }
+
+/* Monte seu laboratório */
+.monte { padding-top: 90px; }
+.monte-grid { display: grid; grid-template-columns: 1fr 1.2fr .8fr; gap: 40px; align-items: center; }
+.monte-texto h2 { font-size: clamp(34px, 3.6vw, 50px); }
+.monte-texto h2 strong { display: block; font-weight: 400; color: var(--teal); }
+.monte-texto p { color: var(--muted); font-size: 18px; }
+.monte-fotos { position: relative; height: 420px; }
+.monte-fotos figure { position: absolute; margin: 0; background: #fff; box-shadow: 0 30px 60px rgba(11,42,60,.18); padding: 14px; width: 52%; aspect-ratio: 1; animation: flutuar 6s ease-in-out infinite; }
+.monte-fotos figure img { width: 100%; height: 100%; object-fit: contain; }
+.monte-fotos figure:nth-child(1) { left: 0; top: 14%; z-index: 1; animation-delay: -1s; }
+.monte-fotos figure:nth-child(2) { left: 24%; top: 0; width: 58%; z-index: 3; animation-delay: -3s; }
+.monte-fotos figure:nth-child(3) { right: 0; top: 22%; z-index: 2; animation-delay: -4.5s; }
+.monte-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+.monte-lista li { display: grid; gap: 10px; color: var(--muted); font-size: 15px; }
+.monte-lista svg { width: 28px; height: 28px; fill: none; stroke: var(--teal); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.monte-banner { position: relative; z-index: 4; margin-top: -60px; background: var(--teal); color: #fff; padding: 56px 60px 44px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; overflow: hidden; }
+.monte-banner::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, transparent 0 38px, rgba(255,255,255,.05) 38px 39px); }
+.monte-banner p { position: relative; margin: 0; font-size: clamp(24px, 2.6vw, 34px); max-width: 420px; line-height: 1.2; }
+.monte-banner .btn { position: relative; }
+
+/* Marcas (letreiro de nomes) */
+.marcas { margin-top: 110px; }
+.marcas-titulo { text-align: center; color: var(--muted); font-size: 14px; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 26px; }
+.marcas .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marcas-trilha span { border: 0; padding: 0 44px; font-size: clamp(26px, 3vw, 40px); font-weight: 600; letter-spacing: -.02em; color: #a8b6be; text-transform: uppercase; }
+.marcas-trilha span::before { display: none; }
+.marcas-trilha span:hover { background: none; color: var(--navy); }
+
+/* Declaração + selo giratório */
+.declaracao-secao { padding: 40px 0 110px; }
+.declaracao { display: flex; align-items: center; justify-content: space-between; gap: 60px; }
+.declaracao-texto { font-size: clamp(26px, 3.2vw, 44px); line-height: 1.3; color: var(--teal-2); max-width: 900px; margin: 0; letter-spacing: -.02em; }
+.declaracao-texto strong { font-weight: 400; color: var(--navy); }
+.selo { position: relative; flex: none; width: 180px; height: 180px; display: grid; place-items: center; color: var(--teal); }
+.selo-texto { position: absolute; inset: 0; width: 100%; height: 100%; animation: girar 18s linear infinite; }
+.selo-texto text { font-size: 14.5px; letter-spacing: .32em; fill: currentColor; font-weight: 500; }
+.selo-seta { width: 54px; height: 54px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; transition: transform .5s var(--ease); }
+.selo:hover .selo-seta { transform: rotate(45deg); }
+.selo::after { content: ""; position: absolute; inset: 38px; border: 1.5px solid currentColor; border-radius: 50%; opacity: .5; }
+
+/* Carrossel de linhas de produto */
+.linhas { position: relative; overflow: hidden; background: var(--navy); color: #fff; min-height: 360px; padding: 60px 64px 70px; }
+.linhas-arte { position: absolute; right: 0; top: 0; width: 55%; height: 100%; }
+.linhas-arte path { fill: none; stroke: rgba(127,216,224,.55); stroke-width: 1.2; animation: arte 9s ease-in-out infinite alternate; }
+@keyframes arte { to { transform: translateY(18px); } }
+.linhas-slides { position: relative; display: grid; }
+.linha-slide { grid-area: 1 / 1; opacity: 0; transform: translateY(20px); transition: opacity .7s var(--ease), transform .7s var(--ease); pointer-events: none; }
+.linha-slide.ativo { opacity: 1; transform: none; pointer-events: auto; }
+.linha-slide .grande { display: block; font-size: clamp(48px, 6vw, 84px); line-height: 1; letter-spacing: -.04em; margin-bottom: 70px; }
+.linha-slide h3 { color: #fff; font-size: 22px; font-weight: 500; margin: 0 0 6px; }
+.linha-slide p { margin: 0 0 20px; color: #b9cfd9; max-width: 340px; }
+.linha-slide a { color: var(--teal-2); font-weight: 500; }
+.linhas-pontos { position: absolute; left: 64px; bottom: 30px; display: flex; gap: 10px; }
+.linhas-pontos button { width: 10px; height: 10px; border-radius: 50%; border: 0; padding: 0; background: rgba(255,255,255,.3); cursor: pointer; transition: background .3s, transform .3s; }
+.linhas-pontos button.ativo { background: var(--teal-2); transform: scale(1.3); }
+
+/* 4 vantagens */
+.vantagens { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.vantagem { border: 1px solid var(--line); padding: 32px 28px; transition: border-color .4s, transform .5s var(--ease), box-shadow .5s; }
+.vantagem svg { width: 30px; height: 30px; fill: none; stroke: var(--navy); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 18px; stroke-dasharray: 120; transition: stroke .4s; }
+.vantagem h3 { font-size: 19px; font-weight: 500; margin-bottom: 6px; }
+.vantagem p { margin: 0; color: var(--muted); font-size: 15px; }
+.vantagem:hover { border-color: var(--teal); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(11,42,60,.08); }
+.vantagem:hover svg { stroke: var(--teal); animation: desenhar 1.2s var(--ease); }
+
+/* FAQ em duas colunas */
+.faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; align-items: start; }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; padding: 22px 0; font-size: 17px; color: var(--navy); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--teal); }
+.faq-mais { position: relative; flex: none; width: 16px; height: 16px; margin-top: 4px; }
+.faq-mais::before, .faq-mais::after { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 2px; background: currentColor; transition: transform .4s var(--ease); }
+.faq-mais::after { transform: rotate(90deg); }
+.faq-item[open] .faq-mais::after { transform: rotate(0); }
+.faq-item p { margin: 0 0 22px; color: var(--muted); animation: entrar .5s var(--ease); }
+
+/* Quem somos + contato */
+.quem-contato { display: grid; grid-template-columns: 1fr 1fr; }
+.quem { background: var(--teal); color: #fff; padding: 90px max(40px, calc((100vw - var(--max)) / 2 + 24px)) 90px; padding-right: 60px; }
+.quem h2 { color: #fff; font-size: clamp(36px, 4vw, 56px); max-width: 420px; }
+.quem p { color: #d9f0ee; font-size: 17px; max-width: 460px; margin: 0 0 34px; }
+.rotulo-claro { color: #bff0e9; }
+.contato-lado { padding: 90px max(24px, calc((100vw - var(--max)) / 2 + 24px)) 90px 60px; background: #fff; }
+.contato-lado h2 { color: var(--teal); font-size: clamp(30px, 3vw, 40px); margin-bottom: 8px; }
+.contato-sub { color: var(--muted); margin: 0 0 26px; max-width: 420px; }
+.form-linhas { padding: 0; box-shadow: none; }
+
+/* Footer no padrão Halogenn */
+.footer-topo { display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; padding-bottom: 50px; }
+.footer-frase { color: #fff; font-size: clamp(24px, 2.6vw, 34px); max-width: 700px; margin: 0; line-height: 1.3; font-weight: 400; }
+.footer-topo .footer-logo img { margin: 0; }
+.footer-nav { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding: 26px 0; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 50px; }
+.footer-nav nav { display: flex; gap: 30px; flex-wrap: wrap; }
+.footer-nav nav a { color: #fff; }
+.footer-nav nav a:hover { color: var(--teal-2); }
+.footer-grid { grid-template-columns: repeat(4, 1fr); }
+.footer-grid h4 { margin-top: 0; }
+.footer-grid p + h4 { margin-top: 22px; }
+.footer-grid a:hover { color: #fff; }
+
+@media (max-width: 1180px) {
+  .header-acoes .sociais { display: none; }
+  .mega-grid { grid-template-columns: repeat(3, 1fr); }
+  .monte-grid { grid-template-columns: 1fr 1fr; }
+  .monte-lista { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+  .vantagens { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .nav-drop-menu.mega { position: static; padding: 0 0 8px 12px; box-shadow: none; border: 0; }
+  .mega-titulo { display: none; }
+  .mega-grid { grid-template-columns: 1fr; }
+  .monte-grid { grid-template-columns: 1fr; }
+  .monte-fotos { height: 340px; }
+  .monte-banner { margin-top: 30px; padding: 40px 32px; }
+  .declaracao { flex-direction: column; align-items: flex-start; gap: 30px; }
+  .faq { grid-template-columns: 1fr; }
+  .quem-contato { grid-template-columns: 1fr; }
+  .quem, .contato-lado { padding: 64px 24px; }
+  .linhas { padding: 48px 32px 70px; }
+  .linhas-pontos { left: 32px; }
+  .linhas-arte { width: 100%; opacity: .5; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .monte-lista, .vantagens { grid-template-columns: 1fr; }
+  .monte-fotos { height: 260px; }
+  .numeros-linha { flex-direction: column; }
+  .quem, .contato-lado { padding: 56px 16px; }
+  .selo { width: 140px; height: 140px; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+.produto-preco small { color: var(--muted); font-size: 12px; }
