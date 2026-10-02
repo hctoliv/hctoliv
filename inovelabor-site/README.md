@@ -41,6 +41,17 @@ Também há contadores animados, revelação de seções ao rolar e respeito à 
 
 > **Antes de publicar:** confirme o número do WhatsApp em `js/main.js` (`CONTATO.whatsapp`; hoje está com o telefone fixo) e os números da seção "InoveLabor em números".
 
+## Importar o catálogo lendo a loja pública (sem token)
+
+`scripts/importar-loja.mjs` percorre o site da loja, primeiro pelo `sitemap.xml` e, sem ele, navegando pelos links. Em cada página de produto lê os dados estruturados (JSON-LD/og): nome, foto, preço, código, marca, descrição, disponibilidade, categoria (pelo breadcrumb ou pela URL) e link. O resultado vai para `js/produtos.js`.
+
+```bash
+node scripts/importar-loja.mjs                   # fotos ficam apontando para a loja
+node scripts/importar-loja.mjs --baixar-imagens  # salva as fotos em assets/produtos/
+LIMITE=50 node scripts/importar-loja.mjs         # importa só os 50 primeiros (teste rápido)
+```
+Use `--baixar-imagens` quando quiser que as fotos apareçam também na prévia em claude.ai ou em hospedagens que não permitem imagens externas. Com milhares de produtos a pasta fica grande, então para o site publicado o padrão (fotos da loja) é mais leve.
+
 ## Catálogo sincronizado com a loja Tray
 
 O script `scripts/sync-tray.mjs` lê os produtos visíveis da loja pela API oficial da Tray e gera `js/produtos.js`. O resultado inclui nome, foto, preço (com promoção), categoria e subcategoria, descrição curta, disponibilidade, destaque e link para comprar na loja. Requer Node 18 ou mais novo e nenhuma dependência.
@@ -75,7 +86,7 @@ produtos.html    Catálogo com filtros por categoria e busca
 css/style.css    Estilos (variáveis de cor no topo)
 js/produtos.js   Lista de categorias e produtos: edite aqui para atualizar o catálogo
 js/main.js       Orçamento, filtros, busca, menu mobile e formulários
-scripts/         sync-tray.mjs: importa o catálogo da loja Tray
+scripts/         importar-loja.mjs: lê a loja pública · sync-tray.mjs: usa a API da Tray
 assets/          Logos (normal e branco) e favicon em SVG
 ```
 
