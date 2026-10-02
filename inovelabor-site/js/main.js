@@ -149,7 +149,7 @@
   if (cats && window.CATEGORIAS) {
     cats.innerHTML = window.CATEGORIAS.map(function (c) {
       var n = window.PRODUTOS.filter(function (p) { return p.categoria === c.id; }).length;
-      return '<a class="categoria" href="produtos.html?categoria=' + c.id + '">' +
+      return '<a class="categoria" href="produtos.html#' + c.id + '">' +
         '<span class="categoria-icone" aria-hidden="true">' + c.icone + '</span>' +
         '<h3>' + c.nome + '</h3><p>' + c.desc + '</p>' +
         '<span class="categoria-link">' + n + ' produtos →</span></a>';
@@ -163,7 +163,9 @@
     var busca = document.getElementById("busca");
     var resumo = document.getElementById("catalogo-resumo");
     var params = new URLSearchParams(location.search);
-    var ativa = params.get("categoria") || "todas";
+    var ativa = params.get("categoria") || location.hash.slice(1) || "todas";
+    if (ativa !== "todas" && !window.CATEGORIAS.some(function (c) { return c.id === ativa; })) ativa = "todas";
+    window.addEventListener("hashchange", function () { var h = location.hash.slice(1); if (window.CATEGORIAS.some(function (c) { return c.id === h; })) { ativa = h; render(); } });
     if (params.get("q")) busca.value = params.get("q");
 
     filtros.innerHTML = [{ id: "todas", nome: "Todas" }].concat(window.CATEGORIAS).map(function (c) {
