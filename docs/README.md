@@ -24,7 +24,7 @@ Site estático (HTML, CSS e JavaScript puro) da **InoveLabor Produtos para Labor
 
 ## Versão atual: identidade própria "bancada de laboratório"
 
-O visual deixou de seguir a Halogenn e ganhou identidade própria: papel milimetrado, **tabela periódica** com as linhas de produto (o número de cada elemento é a quantidade de itens), CTAs âmbar de etiqueta de segurança e as fontes Bricolage Grotesque, Instrument Sans e JetBrains Mono.
+O visual deixou de seguir a Halogenn e ganhou identidade própria: papel milimetrado, **tabela periódica** com as linhas de produto (o número de cada elemento é a quantidade de itens), CTAs em verde-água vivo da marca, fonte DM Sans (a mesma da Halogenn) e JetBrains Mono nos códigos.
 
 - **CTAs em toda a página:** busca com sugestões (foto e preço), "Cotar no WhatsApp", "Comprar" na loja, "+ Orçamento" e barra fixa no celular.
 - **Performance:** a home carrega só `js/resumo.js` (≈8 KB). O catálogo completo (`js/produtos.js`) só é baixado no catálogo ou quando a pessoa usa a busca. As fotos são WebP de ≈10 KB com carregamento sob demanda, e as animações usam apenas transform e opacity.
