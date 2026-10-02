@@ -18,6 +18,7 @@
 import { mkdir, writeFile, access, unlink } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { gerarResumo } from "./gerar-resumo.mjs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -368,6 +369,7 @@ window.PRODUTOS = ${JSON.stringify(lista, null, 1)};
 `);
   const comFoto = lista.filter((p) => p.imagem).length;
   const comPreco = lista.filter((p) => p.preco).length;
+  await gerarResumo();
   console.log(`Pronto: ${lista.length} produtos (${comFoto} com foto, ${comPreco} com preço) em ${categorias.length} categorias → js/produtos.js`);
 }
 

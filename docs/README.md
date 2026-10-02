@@ -22,24 +22,16 @@ Site estático (HTML, CSS e JavaScript puro) da **InoveLabor Produtos para Labor
 
 > Observação: o ambiente de desenvolvimento não tinha acesso direto a halogenn.com.br. Por isso, a análise se baseou na estrutura pública do site (páginas, categorias e padrão de códigos de produto) e nas informações indexadas por buscadores.
 
-## Versão 2: visual "modernão" no estilo Halogenn
+## Versão atual: identidade própria "bancada de laboratório"
 
-O layout reproduz a estrutura e as animações da Halogenn, com a **paleta da InoveLabor** (azul-petróleo `#0b2a3c`, verde-água `#0e7c86` / `#22b8a7`) e a fonte **DM Sans**, identificada pelos prints do site de referência.
+O visual deixou de seguir a Halogenn e ganhou identidade própria: papel milimetrado, **tabela periódica** com as linhas de produto (o número de cada elemento é a quantidade de itens), CTAs âmbar de etiqueta de segurança e as fontes Bricolage Grotesque, Instrument Sans e JetBrains Mono.
 
-| Seção da Halogenn | Na InoveLabor | Animações |
-|---|---|---|
-| Header escuro: Mensagem + Orçamento com contador | Header transparente sobre o hero, que fica sólido e encolhe ao rolar | Sublinhado deslizante no menu, dropdown de produtos, barra de progresso de rolagem |
-| Hero com fundo "seda" escuro, slider e "Especialistas em atender" | Hero em tela cheia com 3 slides e lista de Universidades, Indústrias, Laboratórios e Escolas | Fundo fluido animado (gradiente girando e fitas desfocadas), títulos subindo linha a linha, autoplay com barra de tempo |
-| Faixa de blocos (laranja + bege) com pontos em losango | 4 blocos: Equipamentos, Vidrarias, Reagentes e Kits | Losangos piscando; no hover, a cor sobe pelo bloco, os pontos giram em onda e o ícone se desenha |
-| "Atender e Entender" + imagem com barra lateral | "Inovar e Transformar" + vidrarias ilustradas com a marca na vertical | Líquido ondulando, bolhas subindo, entrada lateral |
-| "Conheça a Halogenn" + 3 cards com ícones | "Conheça a InoveLabor" + 3 cards | Cards sobem e o ícone se redesenha |
-| Grade de segmentos com seta circular | 6 segmentos atendidos | Sublinhado colorido, seta gira 45°, ícone pulsa |
-| Faixa de logos de clientes | Pronta no HTML (comentada), aguardando os logos reais | Letreiro infinito em tons de cinza |
-| Botão flutuante de WhatsApp | Igual | Pulso de "radar" |
+- **CTAs em toda a página:** busca com sugestões (foto e preço), "Cotar no WhatsApp", "Comprar" na loja, "+ Orçamento" e barra fixa no celular.
+- **Performance:** a home carrega só `js/resumo.js` (≈8 KB). O catálogo completo (`js/produtos.js`) só é baixado no catálogo ou quando a pessoa usa a busca. As fotos são WebP de ≈10 KB com carregamento sob demanda, e as animações usam apenas transform e opacity.
+- **Orçamento:** a lista é enviada pelo WhatsApp (ou por e-mail) já com os itens e as quantidades.
 
-Também há contadores animados, revelação de seções ao rolar e respeito à preferência de "reduzir movimento" do sistema.
-
-> **Antes de publicar:** confirme o número do WhatsApp em `js/main.js` (`CONTATO.whatsapp`; hoje está com o telefone fixo) e os números da seção "InoveLabor em números".
+## Publicar no GitHub Pages
+O site fica em `docs/`. No GitHub, abra **Settings → Pages**. Em *Build and deployment*, escolha **Deploy from a branch**, depois a branch `claude/inovelabor-website-analysis-t3qv52` e a pasta **/docs**, e clique em **Save**. O endereço será `https://hctoliv.github.io/hctoliv/`.
 
 ## Importar o catálogo lendo a loja pública (sem token)
 
@@ -49,7 +41,7 @@ Em ambientes com proxy (como o Claude Code na nuvem), o `fetch` do Node precisa 
 
 ```bash
 node scripts/importar-loja.mjs                   # fotos ficam apontando para a loja
-node scripts/importar-loja.mjs --baixar-imagens  # salva as fotos em assets/produtos/
+node scripts/importar-loja.mjs --baixar-imagens  # salva as fotos em assets/produtos/ e regenera js/resumo.js
 LIMITE=50 node scripts/importar-loja.mjs         # importa só os 50 primeiros (teste rápido)
 ```
 Com `--baixar-imagens` e o ImageMagick instalado, cada foto vira WebP de até 600px (≈10 KB). Use essa opção quando quiser que as fotos apareçam também na prévia em claude.ai ou em hospedagens que não permitem imagens externas. Com milhares de produtos a pasta fica grande, então para o site publicado o padrão (fotos da loja) é mais leve.

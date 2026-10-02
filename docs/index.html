@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InoveLabor | Produtos para Laboratórios</title>
+  <meta name="description" content="Vidrarias, equipamentos, reagentes, plásticos e kits didáticos para laboratórios. Compre online ou peça orçamento pelo WhatsApp. Envio para todo o Brasil.">
+  <meta property="og:title" content="InoveLabor | Produtos para Laboratórios">
+  <meta property="og:description" content="Tudo para o seu laboratório em um só lugar. Compre online ou peça orçamento pelo WhatsApp.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0a2233">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="home">
+
+  <!-- HEADER -->
+  <header class="topo">
+    <div class="topo-aviso">
+      <div class="wrap">
+        <span>Envio para todo o Brasil · itens em estoque saem em 1 a 2 dias úteis</span>
+        <a href="tel:+551127912239" class="hide-sm">(11) 2791-2239</a>
+      </div>
+    </div>
+    <div class="wrap topo-barra">
+      <a href="index.html" class="logo"><img src="assets/logo.svg" alt="InoveLabor Produtos para Laboratórios" width="176" height="38"></a>
+      <form class="busca busca-topo" action="produtos.html" role="search" data-busca>
+        <label for="q-topo" class="sr-only">Buscar produtos</label>
+        <svg class="busca-icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q-topo" name="q" type="search" placeholder="Buscar entre os produtos…" autocomplete="off">
+        <div class="sugestoes" hidden></div>
+      </form>
+      <nav class="menu" aria-label="Principal">
+        <div class="menu-drop">
+          <button type="button" class="menu-link" aria-expanded="false">Produtos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="mega"><div class="wrap mega-grid" id="menu-categorias"></div></div>
+        </div>
+        <a class="menu-link" href="#como-comprar">Como comprar</a>
+        <a class="menu-link" href="#sobre">Sobre</a>
+        <a class="menu-link" href="#contato">Contato</a>
+      </nav>
+      <div class="topo-acoes">
+        <a class="btn btn-linha btn-whats hide-sm" data-whatsapp target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 8.5c.3 2.6 2.1 4.5 4.6 5.4l1.3-1.3 2 1-.4 1.6c-3.8.2-7.6-3.4-7.6-7.3l1.6-.4 1 2z"/></svg>
+          WhatsApp
+        </a>
+        <button type="button" class="btn btn-cta btn-orc" data-abrir-orcamento>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 11h7M9 15h7"/></svg>
+          <span class="hide-xs">Orçamento</span>
+          <span class="contador" data-orcamento-count>0</span>
+        </button>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-texto">
+          <p class="etiqueta"><span class="ponto-vivo"></span> <span data-total-produtos>544</span> produtos à pronta compra</p>
+          <h1>Tudo para o seu laboratório, <span class="grifo">em um só lugar.</span></h1>
+          <p class="hero-sub">Vidrarias, equipamentos, reagentes e kits didáticos das melhores marcas. Compre online ou mande sua lista e receba a cotação pelo WhatsApp.</p>
+          <form class="busca busca-hero" action="produtos.html" role="search" data-busca>
+            <label for="q-hero" class="sr-only">O que você procura?</label>
+            <svg class="busca-icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="q-hero" name="q" type="search" placeholder="O que você procura? Ex.: becker, pHmetro, micropipeta" autocomplete="off">
+            <button type="submit" class="btn btn-escuro">Buscar</button>
+            <div class="sugestoes" hidden></div>
+          </form>
+          <div class="atalhos" aria-label="Buscas populares">
+            <a href="produtos.html?q=becker">Becker</a>
+            <a href="produtos.html?q=pHmetro">pHmetro</a>
+            <a href="produtos.html?q=microscópio">Microscópio</a>
+            <a href="produtos.html?q=pipeta">Pipeta</a>
+            <a href="produtos.html?q=kit">Kit didático</a>
+          </div>
+          <div class="hero-ctas">
+            <a class="btn btn-cta btn-grande" data-whatsapp target="_blank" rel="noopener">Cotar minha lista no WhatsApp <span class="seta">→</span></a>
+            <a class="btn btn-linha btn-grande" href="produtos.html">Ver catálogo completo</a>
+          </div>
+        </div>
+
+        <div class="tabela" aria-label="Linhas de produtos">
+          <p class="tabela-legenda"><span>Tabela InoveLabor</span><span>nº = itens no catálogo</span></p>
+          <div class="tabela-grid" id="tabela"></div>
+        </div>
+      </div>
+
+      <ul class="wrap provas" aria-label="Por que comprar com a InoveLabor">
+        <li><strong>Todo o Brasil</strong><span>envio por Correios e transportadoras</span></li>
+        <li><strong>1 a 2 dias úteis</strong><span>para despachar itens em estoque</span></li>
+        <li><strong><span data-total-marcas>28</span> marcas</strong><span>Kasvi, Olen, Nalgon, Satra e outras</span></li>
+        <li><strong>Atendimento técnico</strong><span>seg. a sex., das 8h30 às 18h</span></li>
+      </ul>
+    </section>
+
+    <!-- MARCAS -->
+    <section class="marcas" aria-label="Marcas que você encontra aqui">
+      <div class="marcas-trilha" id="marcas"></div>
+    </section>
+
+    <!-- DESTAQUES -->
+    <section class="secao" id="destaques-secao">
+      <div class="wrap">
+        <div class="secao-topo">
+          <div>
+            <p class="etiqueta">Mais procurados</p>
+            <h2>Pronto para a sua bancada</h2>
+          </div>
+          <div class="setas-carrossel">
+            <button type="button" class="seta-btn" data-rolar="-1" aria-label="Anteriores">←</button>
+            <button type="button" class="seta-btn" data-rolar="1" aria-label="Próximos">→</button>
+          </div>
+        </div>
+        <div class="carrossel" id="destaques" tabindex="0" aria-label="Produtos em destaque"></div>
+      </div>
+    </section>
+
+    <!-- PARA QUEM -->
+    <section class="secao secao-papel" id="segmentos">
+      <div class="wrap">
+        <div class="secao-topo">
+          <div>
+            <p class="etiqueta">Para quem é</p>
+            <h2>Da sala de aula ao controle de qualidade</h2>
+          </div>
+        </div>
+        <div class="publicos revelar">
+          <a class="publico" href="produtos.html#kits" data-cat="kits">
+            <div class="publico-foto"></div>
+            <div class="publico-info"><span class="publico-num" data-conta="kits">53</span><h3>Escolas</h3><p>Kits didáticos e laboratórios portáteis prontos para a aula prática.</p><span class="publico-cta">Ver kits →</span></div>
+          </a>
+          <a class="publico" href="produtos.html#equipamentos" data-cat="equipamentos">
+            <div class="publico-foto"></div>
+            <div class="publico-info"><span class="publico-num" data-conta="equipamentos">118</span><h3>Universidades e pesquisa</h3><p>Microscópios, agitadores, balanças, estufas e equipamentos de bancada.</p><span class="publico-cta">Ver equipamentos →</span></div>
+          </a>
+          <a class="publico" href="produtos.html#vidrarias" data-cat="vidrarias">
+            <div class="publico-foto"></div>
+            <div class="publico-info"><span class="publico-num" data-conta="vidrarias">142</span><h3>Indústria e controle de qualidade</h3><p>Vidraria graduada e volumétrica, inclusive Schott Duran.</p><span class="publico-cta">Ver vidrarias →</span></div>
+          </a>
+          <a class="publico" href="produtos.html#reagentes-meios" data-cat="reagentes-meios">
+            <div class="publico-foto"></div>
+            <div class="publico-info"><span class="publico-num" data-conta="reagentes-meios">34</span><h3>Microbiologia e análises</h3><p>Meios de cultura, reagentes e consumíveis para rotina laboratorial.</p><span class="publico-cta">Ver reagentes →</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO COMPRAR -->
+    <section class="secao" id="como-comprar">
+      <div class="wrap">
+        <div class="secao-topo">
+          <div>
+            <p class="etiqueta">Como comprar</p>
+            <h2>Três passos até a sua bancada</h2>
+          </div>
+        </div>
+        <ol class="passos revelar">
+          <li class="passo">
+            <span class="passo-num">01</span>
+            <h3>Encontre</h3>
+            <p>Busque pelo nome ou navegue pelas linhas. Cada produto tem foto, preço à vista e especificações.</p>
+          </li>
+          <li class="passo">
+            <span class="passo-num">02</span>
+            <h3>Compre ou cote</h3>
+            <p>Finalize na loja online ou monte sua lista aqui e envie pelo WhatsApp. Para itens fora do site, cotamos entre mais de 50 mil produtos.</p>
+          </li>
+          <li class="passo">
+            <span class="passo-num">03</span>
+            <h3>Receba</h3>
+            <p>Itens em estoque saem em 1 a 2 dias úteis, com código de rastreio no seu e-mail. Também é possível retirar ou usar sua transportadora.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CTA PRINCIPAL -->
+    <section class="cta-faixa" id="cotar">
+      <div class="wrap cta-grid">
+        <div>
+          <p class="etiqueta etiqueta-clara">Cotação rápida</p>
+          <h2>Tem uma lista de materiais? <span class="grifo grifo-claro">Mande pra gente.</span></h2>
+          <p>Envie a lista do seu laboratório pelo WhatsApp e um vendedor especializado responde com preços, prazos e alternativas.</p>
+        </div>
+        <div class="cta-acoes">
+          <a class="btn btn-cta btn-grande" data-whatsapp target="_blank" rel="noopener">Enviar lista no WhatsApp <span class="seta">→</span></a>
+          <button type="button" class="btn btn-claro btn-grande" data-abrir-orcamento>Montar orçamento no site</button>
+          <p class="cta-contato">ou ligue <a href="tel:+551127912239">(11) 2791-2239</a> · <a href="tel:+5511991809701">(11) 99180-9701</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE + FAQ -->
+    <section class="secao" id="sobre">
+      <div class="wrap sobre-grid">
+        <div class="sobre revelar">
+          <p class="etiqueta">Sobre a InoveLabor</p>
+          <h2>Gente que conhece laboratório atendendo você</h2>
+          <p>A InoveLabor é especializada na venda de produtos para laboratórios e atende todo o Brasil. Fundada por sócios com vasta experiência no mercado, conta com vendedores especializados que entendem a necessidade de cada cliente, de profissionais a estudantes.</p>
+          <p class="sobre-missao">Nossa missão: fornecer o mais alto padrão de produtos e transformar os laboratórios e a vida dos nossos clientes.</p>
+        </div>
+        <div class="faq revelar" id="faq">
+          <h3 class="faq-titulo">Perguntas frequentes</h3>
+          <details class="faq-item"><summary>Qual o prazo de envio?</summary><p>Itens em estoque são enviados em 1 a 2 dias úteis após a confirmação do pagamento. Para os demais, o prazo de envio fica entre 7 e 10 dias úteis, conforme a disponibilidade indicada na página do produto.</p></details>
+          <details class="faq-item"><summary>Como acompanho meu pedido?</summary><p>Depois do envio, o código de rastreio (13 dígitos) fica disponível no site e chega no e-mail cadastrado.</p></details>
+          <details class="faq-item"><summary>Posso retirar ou usar minha transportadora?</summary><p>Sim. Há opção de retirada e de frete FOB: informe a transportadora no campo de observações do pedido. Nesse caso o frete é pago pelo cliente à transportadora.</p></details>
+          <details class="faq-item"><summary>Não encontrei um produto no site.</summary><p>Nosso portfólio tem mais de 50 mil itens, incluindo importados. Envie sua lista pelo WhatsApp ou pelo orçamento e cotamos para você, com alternativas quando um item estiver indisponível.</p></details>
+          <details class="faq-item"><summary>Qual a garantia dos produtos?</summary><p>A garantia é do fabricante, importador ou distribuidor e varia por produto e marca. O prazo vem na nota fiscal ou na carta de garantia. Guarde os dois documentos.</p></details>
+          <details class="faq-item"><summary>Recebi um produto com defeito ou avariado.</summary><p>Para defeito, você tem 7 dias a partir do recebimento para solicitar a devolução. Em caso de avaria no transporte, confira no ato da entrega e recuse o recebimento na hora.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="secao secao-papel" id="contato">
+      <div class="wrap contato-grid">
+        <div class="revelar">
+          <p class="etiqueta">Contato</p>
+          <h2>Fale com um especialista</h2>
+          <ul class="contatos">
+            <li><span>WhatsApp e telefone</span><a href="tel:+551127912239">(11) 2791-2239</a></li>
+            <li><span>Celular</span><a href="tel:+5511991809701">(11) 99180-9701</a></li>
+            <li><span>E-mail</span><a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></li>
+            <li><span>Endereço</span>Rua Paraisópolis, 305 – Cidade Patriarca, São Paulo – SP</li>
+            <li><span>Horário</span>Segunda a sexta, das 8h30 às 18h</li>
+          </ul>
+        </div>
+        <form class="form revelar" id="form-contato">
+          <div class="form-linha">
+            <label for="c-nome">Nome<input id="c-nome" name="nome" required autocomplete="name"></label>
+            <label for="c-empresa">Empresa / Instituição<input id="c-empresa" name="empresa" autocomplete="organization"></label>
+          </div>
+          <label for="c-msg">Como podemos ajudar?<textarea id="c-msg" name="mensagem" required placeholder="Ex.: preciso de 10 beckers de 250 mL e um agitador magnético com aquecimento"></textarea></label>
+          <button type="submit" class="btn btn-cta btn-grande">Enviar pelo WhatsApp <span class="seta">→</span></button>
+          <small>A mensagem abre no WhatsApp pronta para enviar. Prefere e-mail? <a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></small>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="rodape">
+    <div class="wrap rodape-grid">
+      <div>
+        <img src="assets/logo-branco.svg" alt="InoveLabor" width="176" height="38" loading="lazy">
+        <p>Produtos para laboratórios com procedência, nota fiscal e atendimento especializado para todo o Brasil.</p>
+        <div class="sociais">
+          <a href="https://www.instagram.com/inovelabor/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></a>
+          <a href="https://www.linkedin.com/company/inovelabor/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></a>
+          <a href="https://www.facebook.com/profile.php?id=61555981563071" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V10H6.5v3.5H9V21h3.5v-7.5H15l.5-3.5h-3V7a1 1 0 0 1 1-1H15z"/></svg></a>
+          <a href="https://www.youtube.com/@InoveLabor" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10 9 5 3-5 3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Produtos</h4>
+        <ul id="rodape-categorias"><li><a href="produtos.html">Todos os produtos</a></li></ul>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
+        <ul>
+          <li><a href="tel:+551127912239">(11) 2791-2239</a></li>
+          <li><a href="tel:+5511991809701">(11) 99180-9701</a></li>
+          <li><a href="mailto:vendas@inovelabor.com.br">vendas@inovelabor.com.br</a></li>
+          <li>Seg. a sex., 8h30 às 18h</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li>InoveLabor Produtos para Laboratórios Ltda.</li>
+          <li>CNPJ 53.426.801/0001-80</li>
+          <li>Rua Paraisópolis, 305 – Cidade Patriarca, São Paulo – SP</li>
+          <li><a href="https://www.inovelabor.com.br" target="_blank" rel="noopener">Loja online ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap rodape-base"><span>© <span id="ano">2026</span> InoveLabor. Todos os direitos reservados.</span></div>
+  </footer>
+
+  <!-- BARRA FIXA NO CELULAR -->
+  <div class="barra-movel">
+    <a class="btn btn-linha" data-whatsapp target="_blank" rel="noopener">WhatsApp</a>
+    <button type="button" class="btn btn-cta" data-abrir-orcamento>Orçamento <span class="contador" data-orcamento-count>0</span></button>
+  </div>
+
+  <!-- ORÇAMENTO -->
+  <div class="drawer" id="orcamento" aria-hidden="true">
+    <div class="drawer-fundo" data-fechar></div>
+    <aside class="drawer-painel" role="dialog" aria-labelledby="orc-titulo">
+      <div class="drawer-topo">
+        <h2 id="orc-titulo">Meu orçamento</h2>
+        <button type="button" data-fechar aria-label="Fechar">✕</button>
+      </div>
+      <div class="drawer-corpo">
+        <div class="orc-lista"></div>
+        <form class="form form-orc">
+          <label for="o-nome">Nome<input id="o-nome" name="nome" required autocomplete="name"></label>
+          <label for="o-empresa">Empresa / Instituição<input id="o-empresa" name="empresa" autocomplete="organization"></label>
+          <label for="o-obs">Observações<textarea id="o-obs" name="obs" placeholder="Quantidades, especificações, itens fora do catálogo…"></textarea></label>
+          <button type="submit" class="btn btn-cta btn-grande" value="whatsapp">Enviar pelo WhatsApp</button>
+          <button type="submit" class="btn btn-linha" value="email">Enviar por e-mail</button>
+        </form>
+      </div>
+    </aside>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/resumo.js"></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
