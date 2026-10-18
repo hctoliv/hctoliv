@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
+  <!-- Ícone: engrenagem/trabalho estilizado -->
+  <circle cx="25" cy="25" r="10" stroke="#1a6b3c" stroke-width="3" fill="none"/>
+  <circle cx="25" cy="25" r="4" fill="#1a6b3c"/>
+  <!-- Dentes da engrenagem -->
+  <rect x="22" y="11" width="6" height="5" rx="1" fill="#1a6b3c"/>
+  <rect x="22" y="34" width="6" height="5" rx="1" fill="#1a6b3c"/>
+  <rect x="11" y="22" width="5" height="6" rx="1" fill="#1a6b3c"/>
+  <rect x="34" y="22" width="5" height="6" rx="1" fill="#1a6b3c"/>
+  <!-- Texto Inova -->
+  <text x="50" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1a6b3c">Inova</text>
+  <!-- Texto Labor -->
+  <text x="50" y="38" font-family="Arial, sans-serif" font-size="14" font-weight="400" fill="#0f172a" letter-spacing="2">LABOR</text>
+</svg>
