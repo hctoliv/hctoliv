@@ -4,31 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Comandante Hamilton · Piloto, jornalista e escritor</title>
-<meta name="description" content="Comandante Hamilton, o piloto-jornalista mais conhecido do país. Pioneiro da notícia vista do helicóptero, autor do livro A corrida de 50 milhões que eu venci. Palestras, presença em eventos e imagens aéreas.">
+<meta name="description" content="Comandante Hamilton, o piloto-jornalista mais conhecido do país. Pioneiro da notícia vista do helicóptero no SBT, Band, Record e RedeTV, autor do livro A corrida de 50 milhões que eu venci. Palestras, eventos e imagens aéreas.">
 <link rel="canonical" href="https://hctoliv.github.io/cmte-hamilton/">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#f3f0ea">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; font-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Comandante Hamilton">
-<meta property="og:title" content="Comandante Hamilton · Embarque no voo">
-<meta property="og:description" content="Do menino que sonhava voar ao piloto-jornalista mais conhecido do país. Role e voe junto.">
+<meta property="og:title" content="Comandante Hamilton · Piloto, jornalista e escritor">
+<meta property="og:description" content="Do menino que sonhava voar ao piloto-jornalista mais conhecido do país.">
 <meta property="og:url" content="https://hctoliv.github.io/cmte-hamilton/">
 <meta property="og:image" content="https://hctoliv.github.io/cmte-hamilton/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Comandante Hamilton pilotando um helicóptero ao pôr do sol">
+<meta property="og:image:alt" content="Comandante Hamilton de uniforme de piloto, ao lado da assinatura Cmte Hamilton">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preload" href="fonts/barlow-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-condensed-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=1">
+<link rel="preload" href="img/hamilton-recorte.webp" as="image">
+<link rel="stylesheet" href="styles.css?v=2">
 
 <script type="application/ld+json">
 {
@@ -45,7 +46,7 @@
       "@type": "Person",
       "@id": "https://hctoliv.github.io/cmte-hamilton/#hamilton",
       "name": "Comandante Hamilton",
-      "alternateName": ["Cmte Hamilton", "Comandante Hamilton piloto"],
+      "alternateName": ["Cmte Hamilton"],
       "jobTitle": "Piloto de helicóptero, jornalista e escritor",
       "description": "Piloto pioneiro na cobertura jornalística por helicóptero nas TVs SBT, Band, Record e RedeTV. Autor do livro A corrida de 50 milhões que eu venci.",
       "image": "https://hctoliv.github.io/cmte-hamilton/img/og.jpg",
@@ -69,10 +70,12 @@
   ]
 }
 </script>
+<script src="js/gsap.min.js" defer></script>
+<script src="js/ScrollTrigger.min.js" defer></script>
 <script src="js/lenis.min.js" defer></script>
-<script src="main.js?v=1" defer></script>
+<script src="main.js?v=2" defer></script>
 </head>
-<body class="is-loading">
+<body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
 <svg width="0" height="0" class="sr" aria-hidden="true">
@@ -84,141 +87,159 @@
   <symbol id="i-x" viewBox="0 0 24 24"><path fill="currentColor" d="M17.8 3h3.3l-7.2 8.2L22.4 21h-6.6l-5.2-6.8L4.6 21H1.3l7.7-8.8L1 3h6.8l4.7 6.2L17.8 3zm-1.2 16h1.8L6.5 4.9H4.6L16.6 19z"/></symbol>
 </svg>
 
-<!-- PRÉ-VOO -->
-<div class="preflight" id="preflight" aria-hidden="true">
-  <div class="preflight__box">
-    <img src="img/assinatura.webp" alt="" width="465" height="182">
-    <ol class="preflight__list" id="checklist">
-      <li><span>Bateria</span><b>OK</b></li>
-      <li><span>Rotor principal</span><b>OK</b></li>
-      <li><span>GPS · Campo de Marte</span><b>OK</b></li>
-      <li><span>Câmera</span><b>REC</b></li>
-    </ol>
-    <div class="preflight__bar"><span id="preBar"></span></div>
-    <p class="preflight__pct"><span id="prePct">0</span>% · pré-voo</p>
-    <button class="preflight__go" type="button" id="preGo" disabled>Decolar</button>
-  </div>
+<!-- abertura -->
+<div class="loader" id="loader" aria-hidden="true">
+  <img src="img/assinatura.webp" alt="" width="465" height="182">
+  <span class="loader__count" id="loaderCount">0</span>
 </div>
 
-<!-- CÂMERA (voo) -->
-<canvas class="cam" id="cam" aria-hidden="true"></canvas>
-<div class="cam-fx" aria-hidden="true"><div class="cam-fx__vig"></div><div class="cam-fx__grain"></div><div class="cam-fx__flash" id="flash"></div></div>
-
-<!-- HUD do drone -->
-<div class="hud" id="hud" aria-hidden="true">
-  <span class="hud__c hud__c--tl"></span><span class="hud__c hud__c--tr"></span><span class="hud__c hud__c--bl"></span><span class="hud__c hud__c--br"></span>
-  <div class="hud__rec"><i></i>REC <b id="hudTime">00:00:00</b></div>
-  <div class="hud__cross"></div>
-  <div class="hud__data"><span>ALT <b id="hudAlt">0</b> FT</span><span>GS <b id="hudSpd">0</b> KT</span><span>HDG <b id="hudHdg">000</b>°</span></div>
-  <div class="hud__geo" id="hudGeo">S 23°30′ W 046°38′</div>
-  <ol class="hud__scenes" id="hudScenes"><li></li><li></li><li></li><li></li><li></li></ol>
-</div>
+<div class="progress" aria-hidden="true"><span id="progress"></span></div>
 
 <header class="nav" id="nav">
   <a class="nav__brand" href="#topo" aria-label="Comandante Hamilton, início"><img src="img/assinatura.webp" alt="Cmte Hamilton" width="465" height="182"></a>
   <nav aria-label="Principal">
     <ul class="nav__links" id="menu">
       <li><a href="#historia">História</a></li>
-      <li><a href="#livro">Livro</a></li>
       <li><a href="#tv">Na TV</a></li>
+      <li><a href="#livro">Livro</a></li>
       <li><a href="#comandos">Comandos</a></li>
-      <li><a href="#contratar">Contratar</a></li>
+      <li class="nav__mcta"><a href="#contratar">Contratar</a></li>
     </ul>
   </nav>
-  <button class="nav__sound" type="button" id="sound" aria-pressed="false"><span class="nav__eq"><i></i><i></i><i></i></span><span id="soundLbl">Som do rotor</span></button>
-  <a class="btn btn--sm nav__cta" href="#contratar">Contratar</a>
+  <a class="btn btn--sm btn--red nav__cta" href="#contratar">Contratar</a>
   <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span><span></span></button>
 </header>
 
 <main id="conteudo">
 
-<!-- ================== VOO ================== -->
-<div class="flight" id="flight">
-
-  <section class="scene" id="topo" data-scene="0" aria-labelledby="s0-title">
-    <div class="scene__pin">
-      <div class="scene__copy scene__copy--hero">
-        <p class="kicker">Piloto · Jornalista · Escritor</p>
-        <h1 class="scene__title" id="s0-title"><span class="sr">Comandante Hamilton</span><img class="hero-sign" src="img/assinatura.webp" alt="" width="465" height="182"></h1>
-        <p class="scene__lead">O piloto-jornalista mais conhecido do país. Décadas levando o Brasil para dentro da notícia, vista do alto.</p>
-        <div class="scene__ctas">
-          <a class="btn" href="#historia">Embarcar no voo <svg><use href="#i-arrow"/></svg></a>
-          <a class="btn btn--glass" href="#contratar">Contratar o Comandante</a>
-        </div>
-      </div>
-      <p class="scene__hint" aria-hidden="true"><span></span>Role para decolar</p>
-    </div>
-  </section>
-
-  <section class="scene" id="historia" data-scene="1" aria-labelledby="s1-title">
-    <div class="scene__pin">
-      <div class="scene__copy scene__copy--left">
-        <p class="kicker">01 · Um sonhador</p>
-        <h2 class="scene__title" id="s1-title">Ele sonhava<br>que voava.</h2>
-        <p class="scene__lead">Desde pequeno, Hamilton sonhava que estava voando: corria, levantava os braços e voava como um pássaro. Cresceu numa das maiores comunidades de São Paulo, longe de qualquer hangar.</p>
-      </div>
-      <figure class="polaroid">
-        <img src="img/hamilton-4-ano.webp" alt="Hamilton criança na escola, no 4º ano" width="828" height="772" loading="lazy">
-        <figcaption>O menino do 4º ano</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="scene" data-scene="2" aria-labelledby="s2-title">
-    <div class="scene__pin">
-      <div class="scene__copy scene__copy--right">
-        <p class="kicker">02 · 1983, Campo de Marte</p>
-        <h2 class="scene__title" id="s2-title">O dia em que<br>pegou nos comandos.</h2>
-        <p class="scene__lead">Um piloto de helicóptero pediu ajuda no desembarque do Papai Noel. O pagamento: pilotar um pouco durante o trajeto. Ao segurar os comandos, ele sentiu na hora que era aquilo para toda a vida.</p>
+<!-- HERO -->
+<section class="hero" id="topo" aria-labelledby="hero-title">
+  <div class="hero__word" aria-hidden="true"><span>VOAR</span></div>
+  <svg class="hero__rotor" viewBox="0 0 400 400" aria-hidden="true"><g><rect x="196" y="10" width="8" height="380" rx="4"/><rect x="10" y="196" width="380" height="8" rx="4"/></g><circle cx="200" cy="200" r="16"/></svg>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow"><i class="dot"></i>Piloto · Jornalista · Escritor</p>
+      <h1 class="hero__title" id="hero-title">
+        <span class="line"><span>Comandante</span></span>
+        <span class="line"><span><em>Hamilton</em></span></span>
+      </h1>
+      <p class="hero__lead">O piloto-jornalista mais conhecido do país. O menino da comunidade que sonhava voar e levou o Brasil para dentro da notícia, vista do alto.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--ink" href="#historia">Conhecer a história <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--line" href="#contratar">Contratar</a>
       </div>
     </div>
-  </section>
-
-  <section class="scene" data-scene="3" aria-labelledby="s3-title">
-    <div class="scene__pin">
-      <div class="scene__copy scene__copy--left">
-        <p class="kicker">03 · No ar, ao vivo</p>
-        <h2 class="scene__title" id="s3-title">A notícia<br>vista de cima.</h2>
-        <p class="scene__lead">Pioneiro da cobertura jornalística por helicóptero, começou no SBT e passou por Band, Record e RedeTV. Também faz imagens aéreas para emissoras, cinema e publicidade.</p>
-        <ul class="nets"><li>SBT</li><li>Band</li><li>Record</li><li>RedeTV</li></ul>
-      </div>
-      <div class="live" aria-hidden="true"><i></i>AO VIVO</div>
+    <div class="hero__figure" id="heroFig">
+      <div class="hero__disc" aria-hidden="true"></div>
+      <img src="img/hamilton-recorte.webp" alt="Comandante Hamilton de uniforme de piloto, sentado e sorrindo" width="739" height="1100" fetchpriority="high">
+      <span class="hero__tag hero__tag--a">SBT · Band · Record · RedeTV</span>
+      <span class="hero__tag hero__tag--b">Autor de <b>A corrida de 50 milhões</b></span>
     </div>
-  </section>
+  </div>
+  <div class="hero__scroll" aria-hidden="true"><span></span>role</div>
+</section>
 
-  <section class="scene" data-scene="4" aria-labelledby="s4-title">
-    <div class="scene__pin">
-      <div class="scene__copy scene__copy--right">
-        <p class="kicker">04 · Tripulação</p>
-        <h2 class="scene__title" id="s4-title">Quem voa junto<br>vira Comando.</h2>
-        <p class="scene__lead">Hoje, a cabine é aberta: no YouTube, no Instagram e no TikTok, o Comandante leva milhares de seguidores para dentro do voo.</p>
+<!-- MANIFESTO -->
+<section class="manifesto" aria-labelledby="man-title">
+  <p class="manifesto__kicker" id="man-title">De onde ele veio</p>
+  <p class="manifesto__text" data-words>Cresceu numa das maiores comunidades de São Paulo sonhando que voava. Virou o piloto que, por décadas, levou o Brasil para dentro da notícia. <strong>Hoje conta essa corrida para inspirar quem ainda está sonhando.</strong></p>
+</section>
+
+<!-- HISTÓRIA -->
+<section class="story" id="historia" aria-labelledby="story-title">
+  <div class="story__media">
+    <div class="story__sticky">
+      <div class="story__frame">
+        <img class="story__img on" src="img/hamilton-4-ano.webp" alt="Hamilton criança na escola, no 4º ano" width="828" height="772" loading="lazy">
+        <img class="story__img" src="img/cockpit-sentado.webp" alt="Comandante Hamilton sorrindo no assento do piloto" width="1024" height="768" loading="lazy">
+        <img class="story__img" src="img/gugu-sbt.webp" alt="Helicóptero do SBT com o nome Gugu na lateral, em voo" width="572" height="423" loading="lazy">
+        <img class="story__img" src="img/cockpit-por-do-sol.webp" alt="Comandante Hamilton pilotando ao pôr do sol" width="1024" height="768" loading="lazy">
       </div>
+      <p class="story__count"><b id="storyNum">01</b>/04</p>
     </div>
-  </section>
-</div>
+  </div>
+  <div class="story__steps">
+    <header class="story__head">
+      <p class="eyebrow">A história</p>
+      <h2 class="h2" id="story-title">Da comunidade <em>ao cockpit.</em></h2>
+    </header>
+    <article class="step">
+      <span class="step__n">01 · Infância</span>
+      <h3>Um sonhador</h3>
+      <p>Desde pequeno, Hamilton sonhava que estava voando: corria, levantava os braços e voava como um pássaro. A infância foi humilde, numa das maiores comunidades de São Paulo.</p>
+      <img class="step__img" src="img/hamilton-4-ano.webp" alt="" width="828" height="772" loading="lazy">
+    </article>
+    <article class="step">
+      <span class="step__n">02 · 1983</span>
+      <h3>Campo de Marte</h3>
+      <p>Um piloto de helicóptero pediu ajuda no desembarque do Papai Noel. O pagamento: pilotar um pouco durante o trajeto. Ao segurar os comandos, ele sentiu na hora que era aquilo para toda a vida.</p>
+      <img class="step__img" src="img/cockpit-sentado.webp" alt="" width="1024" height="768" loading="lazy">
+    </article>
+    <article class="step">
+      <span class="step__n">03 · A TV</span>
+      <h3>A notícia vista de cima</h3>
+      <p>Começou no SBT e virou pioneiro da cobertura jornalística por helicóptero, passando por Band, Record e RedeTV. Estudou jornalismo e voou coberturas que bateram recordes de audiência.</p>
+      <img class="step__img" src="img/gugu-sbt.webp" alt="" width="572" height="423" loading="lazy">
+    </article>
+    <article class="step">
+      <span class="step__n">04 · Hoje</span>
+      <h3>Escritor e palestrante</h3>
+      <p>Lançou o livro A corrida de 50 milhões que eu venci, faz imagens aéreas para emissoras, cinema e publicidade, e dedica parte do tempo a projetos educativos e motivacionais.</p>
+      <img class="step__img" src="img/cockpit-por-do-sol.webp" alt="" width="1024" height="768" loading="lazy">
+    </article>
+  </div>
+</section>
 
-<!-- ================== TERRA FIRME ================== -->
-<div class="ground">
+<!-- NA TV -->
+<section class="tv" id="tv" aria-labelledby="tv-title">
+  <div class="tv__marquee" aria-hidden="true">
+    <div class="tv__track"><span>SBT</span><i>✦</i><span>BAND</span><i>✦</i><span>RECORD</span><i>✦</i><span>REDETV</span><i>✦</i><span>SBT</span><i>✦</i><span>BAND</span><i>✦</i><span>RECORD</span><i>✦</i><span>REDETV</span><i>✦</i></div>
+  </div>
+  <div class="wrap tv__grid">
+    <div class="tv__copy">
+      <p class="eyebrow eyebrow--light">Na TV</p>
+      <h2 class="h2 h2--light" id="tv-title">O helicóptero que <em>parava o país.</em></h2>
+      <p class="lead lead--light">Trânsito, perseguições e coberturas históricas: por décadas, quando a TV precisava estar no alto, era o Comandante nos controles. E também os paraquedinhas do Domingo Legal, com o Gugu.</p>
+    </div>
+    <figure class="tv__card">
+      <img src="img/gugu-sbt.webp" alt="Helicóptero do SBT com o nome Gugu na lateral, em voo" width="572" height="423" loading="lazy">
+      <blockquote>"Eu fui o piloto com mais multa no Brasil, porque eles não entendiam aquilo de jogar paraquedinhas."</blockquote>
+      <figcaption>Comandante Hamilton, sobre o Domingo Legal</figcaption>
+    </figure>
+  </div>
+</section>
 
-<section class="arch" aria-labelledby="arch-title">
-  <div class="arch__window"><img src="img/heliponto.webp" alt="Comandante Hamilton agachado diante do helicóptero no heliponto molhado, com o reflexo no chão" width="1024" height="768" loading="lazy"></div>
-  <h2 class="arch__title" id="arch-title">Pouso <em>suave.</em></h2>
+<!-- DIÁRIO DE BORDO -->
+<section class="log" aria-labelledby="log-title">
+  <div class="log__pin">
+    <header class="log__head wrap">
+      <p class="eyebrow">Diário de bordo</p>
+      <h2 class="h2" id="log-title">A vida <em>no alto.</em></h2>
+    </header>
+    <div class="log__track" id="logTrack">
+      <figure class="shot shot--tall"><img src="img/cockpit-por-do-sol.webp" alt="Comandante Hamilton pilotando ao pôr do sol sobre a cidade" width="1024" height="768" loading="lazy"><figcaption>Pôr do sol sobre São Paulo</figcaption></figure>
+      <figure class="shot"><img src="img/cockpit-voando.webp" alt="Comandante Hamilton pilotando sobre plantações" width="1280" height="960" loading="lazy"><figcaption>Rotina de voo</figcaption></figure>
+      <figure class="shot shot--tall"><img src="img/heliponto.webp" alt="Comandante Hamilton diante do helicóptero no heliponto molhado" width="1024" height="768" loading="lazy"><figcaption>No heliponto</figcaption></figure>
+      <figure class="shot"><img src="img/cockpit-copiloto.webp" alt="Comandante Hamilton e copiloto fazendo sinal de positivo" width="1280" height="960" loading="lazy"><figcaption>Com a tripulação</figcaption></figure>
+      <figure class="shot shot--tall"><img src="img/cockpit-agusta.webp" alt="Comandante Hamilton no cockpit de um helicóptero Agusta" width="1024" height="768" loading="lazy"><figcaption>Cockpit do Agusta</figcaption></figure>
+    </div>
+  </div>
 </section>
 
 <!-- LIVRO -->
 <section class="book" id="livro" aria-labelledby="book-title">
   <div class="wrap book__grid">
-    <div class="book__cover">
-      <img src="img/livro-capa.webp" alt="Capa do livro A corrida de 50 milhões que eu venci, do Comandante Hamilton" width="729" height="1000" loading="lazy">
+    <div class="book__stage">
+      <img class="book__cover" src="img/livro-capa.webp" alt="Capa do livro A corrida de 50 milhões que eu venci" width="729" height="1000" loading="lazy">
+      <img class="book__author" src="img/hamilton-livro-recorte.webp" alt="Comandante Hamilton segurando o livro" width="990" height="1100" loading="lazy">
     </div>
     <div class="book__copy">
       <p class="eyebrow">O livro</p>
       <h2 class="h2" id="book-title">A corrida de 50 milhões <em>que eu venci.</em></h2>
-      <p class="lead">Da infância na comunidade ao sucesso na TV: a trajetória do Comandante, os bastidores da televisão brasileira e as lições que moldaram o caminho de quem transformou sonho em profissão.</p>
+      <p class="lead">Da infância na comunidade ao sucesso na TV: a trajetória do Comandante, os bastidores da televisão brasileira e as lições de quem transformou sonho em profissão.</p>
       <ul class="book__facts">
         <li><b>Edição</b>impressa e digital</li>
         <li><b>Inclui</b>fotos e bastidores da TV</li>
-        <li><b>Autor</b>Comandante Hamilton</li>
       </ul>
       <div class="book__buy">
         <p class="book__price"><small>R$</small>89,90</p>
@@ -228,52 +249,20 @@
   </div>
 </section>
 
-<!-- NA TV -->
-<section class="tv" id="tv" aria-labelledby="tv-title">
-  <div class="wrap tv__grid">
-    <div class="tv__copy">
-      <p class="eyebrow">Na TV</p>
-      <h2 class="h2" id="tv-title">O helicóptero que <em>parava o país.</em></h2>
-      <p class="lead">Trânsito, perseguições e coberturas históricas: por décadas, quando a TV precisava estar no alto, era o Comandante nos controles. Dos paraquedinhas do Domingo Legal às transmissões ao vivo que bateram recordes de audiência.</p>
-      <ol class="tv__line">
-        <li><b>SBT</b><span>onde tudo começou na TV</span></li>
-        <li><b>Band</b><span>coberturas ao vivo</span></li>
-        <li><b>Record</b><span>jornalismo do alto</span></li>
-        <li><b>RedeTV</b><span>e imagens aéreas para cinema e publicidade</span></li>
-      </ol>
-    </div>
-    <figure class="tv__card">
-      <img src="img/gugu-sbt.webp" alt="Helicóptero do SBT com o nome Gugu na lateral, em voo" width="572" height="423" loading="lazy">
-      <blockquote>"Eu fui o piloto com mais multa no Brasil, porque eles não entendiam aquilo de jogar paraquedinhas."</blockquote>
-      <figcaption>Sobre os paraquedinhas do Domingo Legal, com o Gugu</figcaption>
-    </figure>
-  </div>
-</section>
-
 <!-- COMANDOS -->
 <section class="crew" id="comandos" aria-labelledby="crew-title">
-  <div class="wrap crew__grid">
-    <div class="crew__photo"><img src="img/hamilton-recorte.webp" alt="Comandante Hamilton de uniforme de piloto, sentado e sorrindo" width="739" height="1100" loading="lazy"></div>
-    <div class="crew__copy">
+  <div class="wrap">
+    <div class="crew__head">
       <p class="eyebrow">Os Comandos</p>
-      <h2 class="h2" id="crew-title">Embarque na <em>tripulação.</em></h2>
-      <p class="lead">Curiosidades da aviação, a rotina de voo, viagens como a da Amazônia e prêmios para quem acompanha. Escolha onde voar junto.</p>
-      <ul class="social">
-        <li><a href="https://www.youtube.com/@ComandanteHamilton" target="_blank" rel="noopener"><svg><use href="#i-yt"/></svg><span><b>YouTube</b>@ComandanteHamilton</span></a></li>
-        <li><a href="https://www.instagram.com/cmtehamilton/" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg><span><b>Instagram</b>@cmtehamilton</span></a></li>
-        <li><a href="https://www.tiktok.com/@cmtehamiltonoficial" target="_blank" rel="noopener"><svg><use href="#i-tt"/></svg><span><b>TikTok</b>@cmtehamiltonoficial</span></a></li>
-        <li><a href="https://twitter.com/CmteHamilton" target="_blank" rel="noopener"><svg><use href="#i-x"/></svg><span><b>X</b>@CmteHamilton</span></a></li>
-      </ul>
+      <h2 class="h2" id="crew-title">Voe junto <em>nas redes.</em></h2>
+      <p class="lead">Curiosidades da aviação, a rotina de voo, viagens como a da Amazônia e prêmios para quem acompanha.</p>
     </div>
-  </div>
-  <div class="log" aria-label="Diário de bordo">
-    <div class="log__track">
-      <img src="img/cockpit-voando.webp" alt="Comandante Hamilton pilotando sobre plantações" width="1280" height="960" loading="lazy">
-      <img src="img/cockpit-copiloto.webp" alt="Comandante Hamilton e copiloto fazendo sinal de positivo na cabine" width="1280" height="960" loading="lazy">
-      <img src="img/cockpit-agusta.webp" alt="Comandante Hamilton no cockpit de um helicóptero Agusta" width="1024" height="768" loading="lazy">
-      <img src="img/cockpit-por-do-sol.webp" alt="Comandante Hamilton pilotando ao pôr do sol" width="1024" height="768" loading="lazy">
-      <img src="img/cockpit-sentado.webp" alt="Comandante Hamilton sorrindo no assento do piloto" width="1024" height="768" loading="lazy">
-    </div>
+    <ul class="social">
+      <li><a href="https://www.youtube.com/@ComandanteHamilton" target="_blank" rel="noopener"><svg><use href="#i-yt"/></svg><b>YouTube</b><span>@ComandanteHamilton</span><i>Assistir <svg><use href="#i-arrow"/></svg></i></a></li>
+      <li><a href="https://www.instagram.com/cmtehamilton/" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg><b>Instagram</b><span>@cmtehamilton</span><i>Seguir <svg><use href="#i-arrow"/></svg></i></a></li>
+      <li><a href="https://www.tiktok.com/@cmtehamiltonoficial" target="_blank" rel="noopener"><svg><use href="#i-tt"/></svg><b>TikTok</b><span>@cmtehamiltonoficial</span><i>Seguir <svg><use href="#i-arrow"/></svg></i></a></li>
+      <li><a href="https://twitter.com/CmteHamilton" target="_blank" rel="noopener"><svg><use href="#i-x"/></svg><b>X</b><span>@CmteHamilton</span><i>Seguir <svg><use href="#i-arrow"/></svg></i></a></li>
+    </ul>
   </div>
 </section>
 
@@ -286,7 +275,7 @@
       <ul class="hire__list">
         <li><b>Palestras</b>Da comunidade ao cockpit: sonho, disciplina e superação, com histórias dos bastidores da TV.</li>
         <li><b>Presença e marcas</b>Eventos, ações de marca e publicidade com um dos rostos mais reconhecidos da TV.</li>
-        <li><b>Imagens aéreas</b>Filmagem para emissoras, cinema e publicidade, com décadas de experiência no ar.</li>
+        <li><b>Imagens aéreas</b>Filmagem para emissoras, cinema e publicidade.</li>
         <li><b>Projetos para jovens</b>Encontros com palestras, dinâmicas e prêmios para a nova geração.</li>
       </ul>
       <div class="hire__contacts">
@@ -299,7 +288,7 @@
     <form class="form" id="form" novalidate>
       <fieldset>
         <legend class="form__l">O que você precisa</legend>
-        <div class="pills" data-name="tipo">
+        <div class="pills">
           <button type="button" data-v="uma palestra" class="is-on">Palestra</button>
           <button type="button" data-v="presença em evento">Presença em evento</button>
           <button type="button" data-v="uma ação de marca ou publicidade">Publicidade</button>
@@ -318,14 +307,13 @@
       <label class="field"><span class="form__l">Mensagem</span><textarea name="msg" rows="3" placeholder="Público, duração, ideia do evento"></textarea></label>
       <p class="form__err" id="formErr" role="alert" hidden>Escreva seu nome para a equipe saber com quem fala.</p>
       <div class="form__send">
-        <button class="btn btn--wa" type="submit" data-via="wa"><svg><use href="#i-wa"/></svg> Enviar no WhatsApp</button>
-        <button class="btn btn--line" type="button" id="viaMail">Enviar por e-mail</button>
+        <button class="btn btn--wa" type="submit"><svg><use href="#i-wa"/></svg> Enviar no WhatsApp</button>
+        <button class="btn btn--line-l" type="button" id="viaMail">Enviar por e-mail</button>
       </div>
     </form>
   </div>
 </section>
 
-</div>
 </main>
 
 <footer class="foot">
@@ -338,7 +326,9 @@
       <li><a href="https://twitter.com/CmteHamilton" target="_blank" rel="noopener" aria-label="X"><svg><use href="#i-x"/></svg></a></li>
     </ul>
   </div>
-  <p class="wrap foot__legal">© <span id="year">2026</span> Comandante Hamilton. <a href="https://www.cmtehamilton.com.br/loja-comandante-hamilton/" target="_blank" rel="noopener">Loja oficial</a></p>
+  <p class="wrap foot__legal">© <span id="year">2026</span> Comandante Hamilton · <a href="https://www.cmtehamilton.com.br/loja-comandante-hamilton/" target="_blank" rel="noopener">Loja oficial</a></p>
 </footer>
+
+<a class="wa-float" id="waFloat" href="https://wa.me/5511989240812?text=Ol%C3%A1!%20Vim%20pelo%20site%20do%20Comandante%20Hamilton%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar com o comercial no WhatsApp"><svg><use href="#i-wa"/></svg><span>Fale com o comercial</span></a>
 </body>
 </html>
