@@ -14,7 +14,7 @@ if (fs.existsSync(".env")) {
 }
 
 async function ask(key: string, question: string, def = ""): Promise<string> {
-  const existing = current[key] || def;
+  const existing = key in current ? current[key] : def;
   const shown = existing && /KEY/.test(key) ? `${existing.slice(0, 8)}…` : existing;
   const answer = (await rl.question(`${question}${shown ? ` [${shown}]` : ""}: `)).trim();
   return answer || existing;
@@ -32,7 +32,12 @@ const values: Record<string, string> = {
     "RD_STATION_API_KEY",
     "3) Chave de API PÚBLICA do RD Station (Perfil > Integrações > Chaves de API) — Enter para pular",
   ),
-  BOT_NAME: await ask("BOT_NAME", "4) Nome da atendente", "Lia"),
+  NUMEROS_TESTE: (await ask(
+    "NUMEROS_TESTE",
+    "4) MODO TESTE: números que o bot pode atender (vírgula). Digite 'todos' para atender todo mundo",
+    "5511987685469,5511926594857",
+  )).replace(/^todos$/i, "").replace(/[^\d,]/g, ""),
+  BOT_NAME: await ask("BOT_NAME", "5) Nome da atendente", "Lia"),
   CLAUDE_MODEL: current.CLAUDE_MODEL || "claude-opus-5-5",
   CLAUDE_EFFORT: current.CLAUDE_EFFORT || "low",
   PERMITIR_BUSCA_NO_SITE: current.PERMITIR_BUSCA_NO_SITE || "true",

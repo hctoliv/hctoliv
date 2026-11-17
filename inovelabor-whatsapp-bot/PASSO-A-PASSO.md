@@ -44,7 +44,8 @@ npm install
 ```bash
 npm run configurar
 ```
-Ele vai pedir, uma de cada vez: a chave do Claude, o WhatsApp do vendedor (ex.: `5511991809701`) e a chave do RD.
+Ele vai pedir, uma de cada vez: a chave do Claude, o WhatsApp do vendedor (ex.: `5511991809701`), a chave do RD
+e os **números de teste**. Já vem preenchido com **(11) 98768-5469 e (11) 92659-4857**: é só apertar Enter.
 
 ### 2.4 Conversar com a atendente pelo terminal (sem WhatsApp ainda)
 ```bash
@@ -64,6 +65,26 @@ npm start
    e aponte para o QR Code.
 3. Quando aparecer "✅ WhatsApp conectado", mande uma mensagem **de outro celular** para o número de atendimento.
 4. Confira se o vendedor recebeu o aviso no WhatsApp e se o contato apareceu no RD Station.
+
+### 2.6 Modo teste (como está configurado agora)
+Enquanto o modo teste estiver ligado, **a IA só responde os números (11) 98768-5469 e (11) 92659-4857**.
+Todos os outros clientes que chamarem o 2791-2239 **não recebem resposta da IA** e continuam sendo atendidos pela
+equipe, normalmente, pelo celular. No terminal aparece `[modo teste] ignorando ...` para cada mensagem ignorada.
+
+Roteiro de teste sugerido, mandando mensagens desses dois números:
+1. Pergunta simples: "Vocês vendem para pessoa física?", "Qual o endereço?", "Fazem entrega em Manaus?"
+2. Simule o botão do site: "Oi, tudo bem? Gostaria de mais detalhes sobre o produto Produto: Becker de Vidro Graduado Forma Baixa (Griffin)"
+3. Pedido completo: dê nome, empresa, cidade e e-mail e veja se o vendedor recebe o aviso e se o contato aparece no RD.
+4. Pós-venda: "Preciso de ajuda com meu pedido".
+5. Peça para "falar com um humano".
+6. Responda manualmente pelo celular do 2791-2239 numa conversa e confira se a IA para de responder nela.
+
+**Para liberar para todos os clientes**, depois de aprovado:
+```bash
+npm run configurar
+```
+Na pergunta 4 (modo teste), digite `todos` e reinicie o bot (`Ctrl+C` e `npm start`, ou na AWS
+`bash deploy/instalar-aws.sh`). Ao ligar, a mensagem "🧪 MODO TESTE" não deve mais aparecer.
 
 **Importante:**
 - Se alguém da equipe responder manualmente uma conversa (pelo celular ou WhatsApp Web), a IA fica quieta

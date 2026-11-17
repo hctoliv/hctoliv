@@ -13,6 +13,8 @@ export const config = {
   effort: (process.env.CLAUDE_EFFORT || "low") as "low" | "medium" | "high" | "xhigh" | "max",
   botName: process.env.BOT_NAME || "Lia",
   sellers: list(process.env.VENDEDORES_WHATSAPP),
+  /** Modo de teste: se tiver números aqui, o bot SÓ responde esses números. Vazio = atende todo mundo. */
+  testNumbers: list(process.env.NUMEROS_TESTE),
   allowSiteSearch: (process.env.PERMITIR_BUSCA_NO_SITE ?? "true") !== "false",
   humanPauseHours: Number(process.env.PAUSA_APOS_HUMANO_HORAS || 12),
   rdApiKey: process.env.RD_STATION_API_KEY || "",
@@ -20,3 +22,19 @@ export const config = {
   dataDir: path.resolve(process.env.DATA_DIR || "./data"),
   logLevel: process.env.LOG_LEVEL || "info",
 };
+
+/**
+ * Compara telefones de forma tolerante: ignora o 55 e o 9º dígito de celular
+ * (no WhatsApp, números antigos do Brasil às vezes aparecem sem o 9).
+ */
+export function phoneKey(phone: string): string {
+  let d = phone.replace(/\D/g, "");
+  if (d.startsWith("55") && (d.length === 12 || d.length === 13)) d = d.slice(2);
+  if (d.length === 10 || d.length === 11) return d.slice(0, 2) + d.slice(-8);
+  return d;
+}
+
+export function phoneIn(phone: string, list: string[]): boolean {
+  const k = phoneKey(phone);
+  return list.some((p) => phoneKey(p) === k);
+}

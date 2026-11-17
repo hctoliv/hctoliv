@@ -71,6 +71,7 @@ Rode **uma única instância** (duas conexões no mesmo número derrubam uma à 
 | `ANTHROPIC_API_KEY` | Chave da API do Claude |
 | `CLAUDE_MODEL` / `CLAUDE_EFFORT` | Modelo (padrão `claude-opus-5-5`) e esforço (`low` = rápido e barato) |
 | `BOT_NAME` | Nome da atendente (padrão "Lia") |
+| `NUMEROS_TESTE` | Modo teste: o bot só responde esses números. Vazio = atende todos |
 | `VENDEDORES_WHATSAPP` | Números dos vendedores com DDI+DDD, separados por vírgula |
 | `PERMITIR_BUSCA_NO_SITE` | `true` deixa a IA consultar inovelabor.com.br para achar produtos |
 | `PAUSA_APOS_HUMANO_HORAS` | Quanto tempo a IA fica quieta depois que um humano responde |

@@ -16,7 +16,7 @@ import makeWASocket, {
   type WAMessage,
   type WASocket,
 } from "baileys";
-import { config } from "./config.js";
+import { config, phoneIn } from "./config.js";
 import { reply } from "./agent.js";
 import { makeLeadHandler } from "./leads.js";
 import { isPaused, pauseConversation } from "./store.js";
@@ -58,10 +58,16 @@ function extractText(msg: WAMessage): string | undefined {
   return "[o cliente enviou um tipo de mensagem que você não consegue ler]";
 }
 
-/** Número de telefone do cliente (só dígitos). No WhatsApp novo o chat pode vir como LID. */
-function phoneOf(msg: WAMessage): string {
-  const jid = [msg.key.remoteJid, msg.key.remoteJidAlt].find((j) => j && isPnUser(j)) ?? msg.key.remoteJid ?? "";
-  return jidNormalizedUser(jid).split("@")[0];
+/**
+ * Número de telefone do cliente (só dígitos). No WhatsApp novo o chat pode vir como LID
+ * (um identificador que não é o telefone); nesse caso busca o telefone no mapeamento LID -> número.
+ */
+async function phoneOf(msg: WAMessage): Promise<string> {
+  let jid = [msg.key.remoteJid, msg.key.remoteJidAlt].find((j) => j && isPnUser(j));
+  if (!jid && msg.key.remoteJid) {
+    jid = (await sock.signalRepository.lidMapping.getPNForLID(msg.key.remoteJid).catch(() => null)) ?? undefined;
+  }
+  return jidNormalizedUser(jid ?? msg.key.remoteJid ?? "").split("@")[0].split(":")[0];
 }
 
 // --- fila por conversa, com debounce ---
@@ -96,7 +102,7 @@ async function processChat(chatId: string, phone: string, text: string): Promise
   }
 }
 
-function onMessage(msg: WAMessage): void {
+async function onMessage(msg: WAMessage): Promise<void> {
   const chatId = msg.key.remoteJid;
   if (!chatId || isJidGroup(chatId) || isJidBroadcast(chatId) || isJidNewsletter(chatId)) return;
 
@@ -109,8 +115,12 @@ function onMessage(msg: WAMessage): void {
     return;
   }
 
-  const phone = phoneOf(msg);
-  if (config.sellers.includes(phone)) return; // não atende os próprios vendedores
+  const phone = await phoneOf(msg);
+  if (config.testNumbers.length && !phoneIn(phone, config.testNumbers)) {
+    console.log(`[modo teste] ignorando ${phone} (não está em NUMEROS_TESTE)`);
+    return;
+  }
+  if (phoneIn(phone, config.sellers) && !phoneIn(phone, config.testNumbers)) return; // não atende os vendedores
   const text = extractText(msg);
   if (!text) return;
   enqueue(chatId, phone, text);
@@ -145,7 +155,10 @@ async function connect(): Promise<void> {
       fs.rmSync(qrFile, { force: true });
       console.log(`✅ WhatsApp conectado como ${sock.user?.id}. ${config.botName} está atendendo.`);
       const own = jidNormalizedUser(sock.user?.id).split("@")[0];
-      if (config.sellers.includes(own)) {
+      if (config.testNumbers.length) {
+        console.log(`🧪 MODO TESTE: só respondo ${config.testNumbers.join(", ")}. Para atender todos, esvazie NUMEROS_TESTE e reinicie.`);
+      }
+      if (phoneIn(own, config.sellers)) {
         console.warn(`⚠️  VENDEDORES_WHATSAPP contém o próprio número do bot (${own}): o aviso de lead não vai chegar. Use o WhatsApp pessoal do vendedor.`);
       }
     }
@@ -162,10 +175,11 @@ async function connect(): Promise<void> {
 
   sock.ev.on("messages.upsert", ({ messages, type }) => {
     if (type !== "notify") return;
-    for (const msg of messages) onMessage(msg);
+    for (const msg of messages) onMessage(msg).catch((err) => console.error("[mensagem] erro:", err));
   });
 }
 
+if (config.testNumbers.length) console.log(`🧪 Modo teste ativo: ${config.testNumbers.join(", ")}`);
 if (!config.sellers.length) console.warn("⚠️  VENDEDORES_WHATSAPP vazio: os leads só serão salvos em data/leads.jsonl.");
 connect().catch((err) => {
   console.error(err);
