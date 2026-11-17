@@ -13,6 +13,8 @@ Também:
 - Ignora grupos, status e mensagens dos próprios vendedores.
 - Salva todo lead em `data/leads.jsonl`, como backup.
 
+> 👉 **Guia completo para não técnicos: [PASSO-A-PASSO.md](PASSO-A-PASSO.md)**
+
 ## Rodando localmente
 
 Precisa do Node 20 ou mais novo e de uma chave da API do Claude (console.anthropic.com).
@@ -20,7 +22,7 @@ Precisa do Node 20 ou mais novo e de uma chave da API do Claude (console.anthrop
 ```bash
 cd inovelabor-whatsapp-bot
 npm install
-cp .env.example .env   # preencha ANTHROPIC_API_KEY, VENDEDORES_WHATSAPP e RD_STATION_API_KEY
+npm run configurar    # pergunta as chaves e cria o .env
 ```
 
 **1) Teste a conversa no terminal (sem WhatsApp):**
@@ -50,11 +52,12 @@ garantia etc.) e reinicie o bot. O tom e as regras do atendimento ficam em `SYST
 
 ## Subindo na AWS
 
-O jeito mais simples é uma instância **EC2** pequena (t3.small ou t4g.small) com Docker:
+O jeito mais simples é uma instância **EC2** pequena (t3.small) com Docker. O script `deploy/instalar-aws.sh` faz tudo
+(instala o Docker, cria o `.env`, sobe o container e mostra o QR Code). Ou, manualmente:
 
 ```bash
 docker build -t inovelabor-bot .
-docker run -d --name inovelabor-bot --restart unless-stopped --env-file .env -v $(pwd)/data:/app/data inovelabor-bot
+docker run -d --name inovelabor-bot --restart unless-stopped --env-file .env -e DATA_DIR=/app/data -v $(pwd)/data:/app/data inovelabor-bot
 docker logs -f inovelabor-bot   # o QR Code aparece aqui na primeira vez
 ```
 
@@ -73,3 +76,6 @@ Rode **uma única instância** (duas conexões no mesmo número derrubam uma à 
 | `PAUSA_APOS_HUMANO_HORAS` | Quanto tempo a IA fica quieta depois que um humano responde |
 | `RD_STATION_API_KEY` | Chave pública da API do RD Station Marketing |
 | `RD_CONVERSION_IDENTIFIER` | Nome da conversão no RD (padrão `lead-whatsapp-ia`) |
+
+No RD Station, o lead chega com nome, e-mail, celular, empresa, cidade/UF, os campos `cf_setor`, `cf_categoria_interesse`
+e `cf_pedido_whatsapp` (este último criado para o bot) e as tags `whatsapp`, `atendimento-ia`, o tipo e a temperatura.

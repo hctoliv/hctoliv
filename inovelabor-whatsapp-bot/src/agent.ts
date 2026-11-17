@@ -47,6 +47,8 @@ export interface Lead {
   quantidade_e_prazo: string;
   tipo: "orcamento" | "pos_venda" | "duvida" | "outro";
   temperatura: "quente" | "morno" | "frio";
+  setor: "Indústria de alimentos" | "Indústria química/farma" | "Universidade/pesquisa" | "Laboratório de análises" | "Outro";
+  categorias: ("Equipamentos" | "Vidrarias" | "Consumíveis" | "Instrumentos analíticos")[];
   resumo: string;
   /** Preenchido pelo sistema (número do WhatsApp do cliente). */
   telefone: string;
@@ -73,11 +75,21 @@ const registrarLeadTool: Anthropic.Beta.BetaTool = {
         enum: ["quente", "morno", "frio"],
         description: "quente = quer comprar já; morno = pesquisando; frio = só curiosidade",
       },
+      setor: {
+        type: "string",
+        enum: ["Indústria de alimentos", "Indústria química/farma", "Universidade/pesquisa", "Laboratório de análises", "Outro"],
+        description: "Setor do cliente (deduza pela empresa/uso; na dúvida, Outro)",
+      },
+      categorias: {
+        type: "array",
+        items: { type: "string", enum: ["Equipamentos", "Vidrarias", "Consumíveis", "Instrumentos analíticos"] },
+        description: "Categorias de interesse. Plásticos, reagentes, porcelanas, inox, papéis e kits contam como Consumíveis; medidores e balanças de precisão como Instrumentos analíticos.",
+      },
       resumo: { type: "string", description: "Resumo de 2 a 4 linhas para o vendedor" },
     },
     required: [
       "nome", "empresa", "cnpj", "email", "cidade_uf", "produtos",
-      "quantidade_e_prazo", "tipo", "temperatura", "resumo",
+      "quantidade_e_prazo", "tipo", "temperatura", "setor", "categorias", "resumo",
     ],
     additionalProperties: false,
   },

@@ -26,6 +26,7 @@ export function formatLeadForSeller(lead: Lead): string {
     line("E-mail", lead.email) +
     line("Produtos", lead.produtos) +
     line("Qtd./prazo", lead.quantidade_e_prazo) +
+    line("Setor", lead.setor) +
     line("Tipo", lead.tipo) +
     line("Temperatura", lead.temperatura) +
     `\n*Resumo:* ${lead.resumo}\n\n` +

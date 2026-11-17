@@ -23,7 +23,11 @@ export async function sendLeadToRdStation(lead: Lead): Promise<string> {
       company_name: lead.empresa || undefined,
       city: city || undefined,
       state: state || undefined,
-      tags: ["whatsapp", "atendimento-ia", lead.tipo].filter(Boolean),
+      cf_setor: lead.setor || undefined,
+      cf_categoria_interesse: lead.categorias?.length ? lead.categorias : undefined,
+      cf_pedido_whatsapp:
+        `${lead.produtos}${lead.quantidade_e_prazo ? ` | ${lead.quantidade_e_prazo}` : ""}\n${lead.resumo}`.slice(0, 1000),
+      tags: ["whatsapp", "atendimento-ia", lead.tipo, lead.temperatura].filter(Boolean),
       traffic_source: "WhatsApp",
       available_for_mailing: true,
     },

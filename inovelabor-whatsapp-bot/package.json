@@ -10,7 +10,8 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "chat": "tsx src/chat-cli.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "configurar": "tsx src/configurar.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.9.0",
