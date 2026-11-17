@@ -47,8 +47,8 @@ nas próximas vezes não precisa escanear de novo.
 
 ## Ajustando o que a IA sabe
 
-Edite `knowledge/inovelabor.md` (preencha os itens marcados com `[PREENCHER]`: frete, faturamento para CNPJ,
-garantia etc.) e reinicie o bot. O tom e as regras do atendimento ficam em `SYSTEM_PROMPT`, em `src/agent.ts`.
+Edite `knowledge/inovelabor.md` (confirme os itens marcados com `[CONFIRMAR]`: faturamento para CNPJ, pedido mínimo,
+licitações) e reinicie o bot. O tom e as regras do atendimento ficam em `SYSTEM_PROMPT`, em `src/agent.ts`.
 
 ## Subindo na AWS
 
