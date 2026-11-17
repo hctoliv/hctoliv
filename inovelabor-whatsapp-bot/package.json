@@ -1,0 +1,29 @@
+{
+  "name": "inovelabor-whatsapp-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Atendente com IA (Claude) no WhatsApp da InoveLabor: atende, qualifica leads, avisa o vendedor e cadastra no RD Station.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "chat": "tsx src/chat-cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.9.0",
+    "baileys": "7.0.0-rc14",
+    "dotenv": "^18.0.10",
+    "https-proxy-agent": "^7.0.6",
+    "pino": "^10.4.0",
+    "qrcode": "^1.5.4",
+    "tsx": "^4.23.15"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/qrcode": "^1.5.6",
+    "typescript": "^5.9.3"
+  }
+}
