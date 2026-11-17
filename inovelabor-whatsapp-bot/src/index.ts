@@ -144,6 +144,10 @@ async function connect(): Promise<void> {
     if (connection === "open") {
       fs.rmSync(qrFile, { force: true });
       console.log(`✅ WhatsApp conectado como ${sock.user?.id}. ${config.botName} está atendendo.`);
+      const own = jidNormalizedUser(sock.user?.id).split("@")[0];
+      if (config.sellers.includes(own)) {
+        console.warn(`⚠️  VENDEDORES_WHATSAPP contém o próprio número do bot (${own}): o aviso de lead não vai chegar. Use o WhatsApp pessoal do vendedor.`);
+      }
     }
     if (connection === "close") {
       const code = (lastDisconnect?.error as { output?: { statusCode?: number } } | undefined)?.output?.statusCode;

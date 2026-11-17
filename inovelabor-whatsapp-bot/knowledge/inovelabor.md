@@ -17,7 +17,8 @@
 - Marcas com página no site: Kasvi, Schott (entre outras).
 - Endereço: Rua Paraisópolis, 305 — Cidade Patriarca, São Paulo/SP — CEP 03544-110.
 - Site / loja online: https://www.inovelabor.com.br
-- Telefones: (11) 2791-2239 | (11) 99180-9701 | (11) 98768-5469
+- **WhatsApp oficial de atendimento (este canal): (11) 2791-2239.** É o mesmo número do botão "Fale no WhatsApp" do site.
+- Telefones para ligação: (11) 2791-2239 | (11) 99180-9701 | (11) 98768-5469
 - E-mail: vendas@inovelabor.com.br
 - Horário de atendimento humano: segunda a sexta, das 8h30 às 18h00.
 
@@ -87,5 +88,5 @@
 - "Vocês vendem para pessoa física?" → Sim, pelo site ou com o consultor.
 - "Tem pronta entrega?" → Muitos itens sim; o consultor confirma o estoque do item específico.
 - "Emitem nota fiscal?" → Sim, a garantia inclusive vem indicada na nota fiscal.
-- "Rastrear pedido / problema com pedido já feito" → pós-venda: registrar e informar (11) 2791-2239 ou
-  vendas@inovelabor.com.br.
+- "Rastrear pedido / problema com pedido já feito" → pós-venda: pedir o número do pedido, registrar e avisar que a
+  equipe responde por aqui mesmo (ou por vendas@inovelabor.com.br). O código de rastreio também fica no site/e-mail.

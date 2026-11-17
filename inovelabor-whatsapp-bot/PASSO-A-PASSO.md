@@ -1,8 +1,8 @@
 # Passo a passo: colocar a atendente IA no WhatsApp da InoveLabor
 
 Tempo total: uns 40 minutos. Você vai precisar de:
-- o **celular com o WhatsApp de atendimento** (o número que os clientes chamam);
-- o **número do WhatsApp do vendedor** que vai receber os leads;
+- o **celular com o WhatsApp de atendimento (11) 2791-2239** (o número que os clientes chamam e que está no site);
+- o **número do WhatsApp do vendedor** que vai receber os leads (precisa ser **outro** número, não o 2791-2239);
 - um computador (Windows ou Mac) para o teste;
 - acesso ao **RD Station** e um cartão de crédito para a **API do Claude** e a **AWS**.
 
