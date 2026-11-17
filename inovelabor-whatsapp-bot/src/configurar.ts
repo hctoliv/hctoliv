@@ -15,7 +15,7 @@ if (fs.existsSync(".env")) {
 
 async function ask(key: string, question: string, def = ""): Promise<string> {
   const existing = key in current ? current[key] : def;
-  const shown = existing && /KEY/.test(key) ? `${existing.slice(0, 8)}…` : existing;
+  const shown = existing && /KEY|SENHA/.test(key) ? `${existing.slice(0, 8)}…` : existing;
   const answer = (await rl.question(`${question}${shown ? ` [${shown}]` : ""}: `)).trim();
   return answer || existing;
 }
@@ -27,6 +27,7 @@ const values: Record<string, string> = {
   VENDEDORES_WHATSAPP: (await ask(
     "VENDEDORES_WHATSAPP",
     "2) WhatsApp do(s) vendedor(es) que recebem os leads, com 55+DDD (vários: separe por vírgula)",
+    "5511987685469,5511926594857",
   )).replace(/[^\d,]/g, ""),
   RD_STATION_API_KEY: await ask(
     "RD_STATION_API_KEY",
@@ -38,6 +39,8 @@ const values: Record<string, string> = {
     "5511987685469,5511926594857",
   )).replace(/^todos$/i, "").replace(/[^\d,]/g, ""),
   BOT_NAME: await ask("BOT_NAME", "5) Nome da atendente", "Lia"),
+  PAINEL_SENHA: await ask("PAINEL_SENHA", "6) Senha do painel web (QR Code e conversas)"),
+  PAINEL_PORTA: current.PAINEL_PORTA || "3000",
   CLAUDE_MODEL: current.CLAUDE_MODEL || "claude-opus-5-5",
   CLAUDE_EFFORT: current.CLAUDE_EFFORT || "low",
   PERMITIR_BUSCA_NO_SITE: current.PERMITIR_BUSCA_NO_SITE || "true",

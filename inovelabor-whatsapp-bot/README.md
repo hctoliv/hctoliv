@@ -12,6 +12,8 @@ Também:
 - Se alguém da equipe responder manualmente pelo mesmo número, **a IA se cala naquela conversa** por 12h (configurável).
 - Ignora grupos, status e mensagens dos próprios vendedores.
 - Salva todo lead em `data/leads.jsonl`, como backup.
+- **Painel web** em `http://localhost:3000`: QR Code ao vivo, status, leads e conversas (senha em `PAINEL_SENHA`).
+- **Modo teste** (`NUMEROS_TESTE`): só responde os números autorizados.
 
 > 👉 **Guia completo para não técnicos: [PASSO-A-PASSO.md](PASSO-A-PASSO.md)**
 
@@ -75,6 +77,7 @@ Rode **uma única instância** (duas conexões no mesmo número derrubam uma à 
 | `VENDEDORES_WHATSAPP` | Números dos vendedores com DDI+DDD, separados por vírgula |
 | `PERMITIR_BUSCA_NO_SITE` | `true` deixa a IA consultar inovelabor.com.br para achar produtos |
 | `PAUSA_APOS_HUMANO_HORAS` | Quanto tempo a IA fica quieta depois que um humano responde |
+| `PAINEL_PORTA` / `PAINEL_SENHA` | Porta e senha do painel web |
 | `RD_STATION_API_KEY` | Chave pública da API do RD Station Marketing |
 | `RD_CONVERSION_IDENTIFIER` | Nome da conversão no RD (padrão `lead-whatsapp-ia`) |
 

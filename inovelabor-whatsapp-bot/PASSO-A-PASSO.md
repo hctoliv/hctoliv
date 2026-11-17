@@ -60,11 +60,23 @@ Não gostou de alguma resposta? Corrija a informação em `knowledge/inovelabor.
 ```bash
 npm start
 ```
-1. Vai aparecer um **QR Code** no terminal.
+1. Abra o **painel** no navegador: **http://localhost:3000**. Ele mostra o **QR Code** (que também aparece no terminal).
 2. No celular do número de atendimento: **WhatsApp > ⋮ (ou Configurações) > Aparelhos conectados > Conectar aparelho**,
    e aponte para o QR Code.
 3. Quando aparecer "✅ WhatsApp conectado", mande uma mensagem **de outro celular** para o número de atendimento.
 4. Confira se o vendedor recebeu o aviso no WhatsApp e se o contato apareceu no RD Station.
+
+### Painel de monitoramento
+O mesmo endereço (**http://localhost:3000**, ou **http://IP-DO-SERVIDOR:3000** na AWS) mostra:
+- se o WhatsApp está conectado (ou o QR Code, se precisar conectar de novo);
+- se o modo teste está ligado e para quem vão os avisos de lead;
+- a lista de **leads**, com o link para chamar cada cliente;
+- as **conversas** completas, com a marcação "lead registrado" ou "humano assumiu".
+
+A página se atualiza sozinha. Por padrão, os avisos de lead vão para os dois números de teste,
+(11) 98768-5469 e (11) 92659-4857.
+
+![Exemplo do painel](painel-exemplo.png)
 
 ### 2.6 Modo teste (como está configurado agora)
 Enquanto o modo teste estiver ligado, **a IA só responde os números (11) 98768-5469 e (11) 92659-4857**.
@@ -105,7 +117,8 @@ Na pergunta 4 (modo teste), digite `todos` e reinicie o bot (`Ctrl+C` e `npm sta
    - **Imagem:** Ubuntu Server 24.04 LTS
    - **Tipo:** `t3.small` (custa uns US$ 15–20/mês)
    - **Par de chaves:** "Prosseguir sem par de chaves" (vamos entrar pelo navegador)
-   - **Rede:** deixe marcado **apenas** "Permitir tráfego SSH". O bot não precisa de nenhuma porta aberta.
+   - **Rede:** marque "Permitir tráfego SSH". Clique em **Editar** > **Adicionar regra de grupo de segurança**:
+     tipo **TCP personalizado**, porta **3000**, origem **Meu IP**. É o painel, que fica aberto só para o seu IP.
    - **Armazenamento:** 20 GB
 4. Clique em **Executar instância**.
 
@@ -131,8 +144,9 @@ cd hctoliv/inovelabor-whatsapp-bot
 bash deploy/instalar-aws.sh
 ```
 
-O script instala tudo, pergunta as chaves (as mesmas da Parte 1) e mostra o **QR Code**. Escaneie com o celular
-de atendimento, como na Parte 2.5. Depois que aparecer "✅ WhatsApp conectado", aperte `Ctrl+C` e feche a janela.
+O script instala tudo, pergunta as chaves (as mesmas da Parte 1) e uma **senha para o painel**. No fim ele mostra o
+endereço do painel (`http://IP:3000`). Abra no navegador, entre com a senha (o usuário pode ser qualquer um) e
+escaneie o QR Code com o celular de atendimento, como na Parte 2.5. Depois que aparecer "✅ WhatsApp conectado", aperte `Ctrl+C` e feche a janela.
 O bot continua rodando, e volta sozinho se o servidor reiniciar.
 
 ### 3.4 Comandos úteis (no terminal do servidor)

@@ -21,6 +21,8 @@ export const config = {
   rdConversionIdentifier: process.env.RD_CONVERSION_IDENTIFIER || "lead-whatsapp-ia",
   dataDir: path.resolve(process.env.DATA_DIR || "./data"),
   logLevel: process.env.LOG_LEVEL || "info",
+  panelPort: Number(process.env.PAINEL_PORTA || 3000),
+  panelPassword: process.env.PAINEL_SENHA || "",
 };
 
 /**

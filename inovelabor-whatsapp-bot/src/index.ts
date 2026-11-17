@@ -19,7 +19,9 @@ import makeWASocket, {
 import { config, phoneIn } from "./config.js";
 import { reply } from "./agent.js";
 import { makeLeadHandler } from "./leads.js";
-import { isPaused, pauseConversation } from "./store.js";
+import { isPaused, pauseConversation, rememberPhone } from "./store.js";
+import { status } from "./status.js";
+import { startPanel } from "./painel.js";
 
 const logger = pino({ level: config.logLevel === "debug" ? "debug" : "warn" });
 const authDir = path.join(config.dataDir, "whatsapp-auth");
@@ -123,6 +125,7 @@ async function onMessage(msg: WAMessage): Promise<void> {
   if (phoneIn(phone, config.sellers) && !phoneIn(phone, config.testNumbers)) return; // não atende os vendedores
   const text = extractText(msg);
   if (!text) return;
+  rememberPhone(chatId, phone);
   enqueue(chatId, phone, text);
 }
 
@@ -147,11 +150,13 @@ async function connect(): Promise<void> {
 
   sock.ev.on("connection.update", async ({ connection, lastDisconnect, qr }) => {
     if (qr) {
+      Object.assign(status, { state: "aguardando_qr", qr, since: Date.now() });
       await QRCode.toFile(qrFile, qr, { width: 400, margin: 2 });
       console.log(await QRCode.toString(qr, { type: "terminal", small: true }));
       console.log(`Escaneie o QR Code acima (ou abra ${qrFile}) em WhatsApp > Aparelhos conectados > Conectar aparelho.`);
     }
     if (connection === "open") {
+      Object.assign(status, { state: "conectado", qr: undefined, me: sock.user?.id, since: Date.now() });
       fs.rmSync(qrFile, { force: true });
       console.log(`✅ WhatsApp conectado como ${sock.user?.id}. ${config.botName} está atendendo.`);
       const own = jidNormalizedUser(sock.user?.id).split("@")[0];
@@ -163,6 +168,7 @@ async function connect(): Promise<void> {
       }
     }
     if (connection === "close") {
+      Object.assign(status, { state: "desconectado", qr: undefined, since: Date.now() });
       const code = (lastDisconnect?.error as { output?: { statusCode?: number } } | undefined)?.output?.statusCode;
       if (code === DisconnectReason.loggedOut) {
         console.error("Sessão desconectada pelo celular. Apague a pasta", authDir, "e rode de novo para ler um novo QR.");
@@ -181,6 +187,7 @@ async function connect(): Promise<void> {
 
 if (config.testNumbers.length) console.log(`🧪 Modo teste ativo: ${config.testNumbers.join(", ")}`);
 if (!config.sellers.length) console.warn("⚠️  VENDEDORES_WHATSAPP vazio: os leads só serão salvos em data/leads.jsonl.");
+startPanel();
 connect().catch((err) => {
   console.error(err);
   process.exit(1);

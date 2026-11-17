@@ -22,10 +22,12 @@ sudo docker build -t inovelabor-bot .
 sudo docker rm -f inovelabor-bot >/dev/null 2>&1 || true
 echo ">> Ligando o bot (reinicia sozinho se o servidor reiniciar)..."
 sudo docker run -d --name inovelabor-bot --restart unless-stopped \
-  --env-file .env -e DATA_DIR=/app/data -v "$PWD/data":/app/data inovelabor-bot
+  --env-file .env -e DATA_DIR=/app/data -e PAINEL_PORTA=3000 -p 3000:3000 -v "$PWD/data":/app/data inovelabor-bot
 
 echo ""
-echo ">> Pronto. Na primeira vez, escaneie o QR Code que vai aparecer abaixo"
+IP=$(curl -s --max-time 3 https://checkip.amazonaws.com || echo "IP-DO-SERVIDOR")
+echo ">> Painel com QR Code e conversas: http://$IP:3000  (senha: a PAINEL_SENHA do .env)"
+echo ">> Pronto. Na primeira vez, escaneie o QR Code (no painel acima ou aqui embaixo)"
 echo "   (WhatsApp do número de atendimento > Aparelhos conectados > Conectar aparelho)."
 echo "   Para sair desta tela sem desligar o bot: Ctrl+C."
 sleep 5

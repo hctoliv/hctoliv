@@ -10,6 +10,8 @@ export interface Conversation {
   leadRegisteredAt?: number;
   /** IA pausada até este timestamp (um humano assumiu a conversa). */
   pausedUntil?: number;
+  /** Telefone do cliente (só dígitos). */
+  phone?: string;
   updatedAt: number;
 }
 
@@ -59,4 +61,17 @@ export function pauseConversation(chatId: string, hours: number): void {
 export function isPaused(chatId: string): boolean {
   const until = conversations[chatId]?.pausedUntil;
   return !!until && until > Date.now();
+}
+
+/** Conversas mais recentes primeiro (para o painel). */
+export function listConversations(limit = 30): { chatId: string; conv: Conversation }[] {
+  return Object.entries(conversations)
+    .map(([chatId, conv]) => ({ chatId, conv }))
+    .sort((a, b) => b.conv.updatedAt - a.conv.updatedAt)
+    .slice(0, limit);
+}
+
+/** Guarda o telefone de cada conversa (o id do chat pode ser um LID, que não é o número). */
+export function rememberPhone(chatId: string, phone: string): void {
+  getConversation(chatId).phone = phone;
 }
