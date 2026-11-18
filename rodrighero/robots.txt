@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hctoliv.github.io/rodrighero/sitemap.xml
