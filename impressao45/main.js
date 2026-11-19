@@ -167,8 +167,8 @@
       try { await navigator.clipboard.writeText(text); ok.textContent = "Pedido copiado. No Direct, é só colar e enviar."; }
       catch (x) { ok.textContent = "Não deu para copiar sozinho: selecione o texto da ordem de serviço e copie antes de enviar."; }
       ok.hidden = false;
-      const win = open(IG, "_blank", "noopener");
-      if (!win) location.href = IG;
+      const win = open(IG, "_blank");
+      if (win) win.opener = null; else location.href = IG;
     });
     render();
 
