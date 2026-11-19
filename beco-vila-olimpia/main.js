@@ -199,7 +199,6 @@
       const fill = Math.max(0, Math.min(1, (p - 0.08) / 0.8));
       beer.parentElement.style.setProperty("--fill", fill.toFixed(3));
       ml.textContent = `${Math.round(fill * 40) * 10} ml`;
-      tapNum.textContent = String(Math.max(1, Math.min(21, Math.round(1 + p * 2.4 * 20))));
       const s = Math.min(tSteps.length - 1, Math.floor(p * tSteps.length));
       tSteps.forEach((li, i) => li.classList.toggle("on", i === s));
     };
